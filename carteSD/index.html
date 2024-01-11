@@ -1,0 +1,786 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Contrôle chaudière</title>
+    <!--script src="vue.global.js"></script-->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="scripts.js"></script>
+    <!--script src="w3data.js"></script-->
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div id="app">
+    </div>
+  </body>
+  <script>
+    const DEBUG=true;
+    const { createApp } = Vue;
+    const app = createApp({
+      data() {
+        return {
+          'page': 'home',
+          board: null,
+          copyright: null,
+        }
+      },
+      mounted() {    
+        this.loadDatasPiedPage();
+      },
+      template: '\
+        <div class="entete">\
+          <table>\
+            <tr>\
+              <td><a href="#" @click.prevent="page=\'home\'">home</a></td>\
+              <td><a href="#" @click.prevent="page=\'commande\'">commande</a></td>\
+              <td><a href="#" @click.prevent="page=\'calendrier\'">calendrier</a></td>\
+              <td><a href="#" @click.prevent="page=\'temperature\'">temperature</a></td>\
+              <td><a href="#" @click.prevent="page=\'configuration\'">configuration</a></td>\
+              <td><a href="#" @click.prevent="page=\'calendrier2\'">calendrier2</a></td>\
+            </tr>\
+          </table>\
+        </div>\
+        <div>\
+          <component v-bind:is="page"></component>\
+        </div>\
+        <div class="piedPage">\
+          <p>Ce serveur est hébergé sur un arduino : {{board}}</p>\
+          <i>Créé par : {{copyright}}</i>\
+        </div>\
+      ',
+      methods: {
+        loadDatasPiedPage() {
+          fetch("/getDatasPiedPage").then(r => r.json()).then(response => {
+            this.board = response.board;
+            this.copyright = response.copyright;
+          })
+          .catch(error => {
+            console.error(error);
+          });
+        },
+      }
+    });
+
+    //----------------------------------------
+    //
+    //      home
+    //
+    //----------------------------------------
+    app.component('home', {
+      props: [],
+      data: function () {
+        return {
+          currentDateTime: '',
+        };
+      },
+      mounted() {
+        this.updateDateTime();
+        setInterval(this.updateDateTime, 1000);
+      },
+      template: '\
+        <div>\
+          <h1>Pages de gestion de la chaudiere</h1>\
+          <p>Nous somme le {{currentDateTime}}</p>\
+          <p>Ce site permet de gerer la chaudiere, voici une description des differentes pages accessible depuis le bandeau supérieur:</p>\
+          <ul>\
+            <li>home : page de présentation ; affichée lors de l\'ouverture de ce site</li>\
+            <li>calendrier : permet de fixer les périodes de mise en route de la chaudière, \
+              vous disposez de 5 plages par jour sur 1 semaine, \
+              pour chacune de ces plages, vous pouvez fixer les parametres suivants :</li>\
+              <ul>\
+                <li>heure de debut</li>\
+                <li>heure de fin</li>\
+                <li>consigne de chauffage</li>\
+                <li>chauffage on/off</li>\
+              </ul>\
+            <li>temperature : permet de visualiser les differentes temperatures mesurées</li>\
+              <ul>\
+                <li>temperature intérieure</li>\
+                <li>temperature extérieure</li>\
+                <li>consigne de chauffage</li>\
+              </ul>\
+            <li>configuration : permet de visualiser/modifier les parametres de configuration</li>\
+          </ul>\
+        </div>\
+      ',
+      methods: {
+        updateDateTime() {
+          const now = new Date();
+          this.currentDateTime = now.toLocaleString();
+        },
+      }
+    });
+
+    //----------------------------------------
+    //
+    //      commande
+    //
+    //----------------------------------------
+    app.component('commande', {
+      props: [],
+      data: function () {
+        return {
+          currentDateTime: '',
+          consigne: null,
+          chauffageMode: "OFF",
+          chauffageStatus: null,
+          circulateurOnOff: null,
+          commandeVanneChauffage: null,
+          temperatureInterieure: null,
+          temperatureExterieure: null,
+          afficheurOnOff: null,
+        };
+      },
+      mounted() {
+        this.updateDateTime();
+        setInterval(this.updateDateTime, 1000);
+        this.loadDatasCommande();
+      },
+      template: '\
+        <div>\
+          <h1>Page décrivant les commandes de chauffage</h1>\
+          <p>Nous somme le {{currentDateTime}}</p>\
+        </div>\
+        <div>\
+          <table>\
+            <thead>\
+                <tr>\
+                    <th> variable </th>\
+                    <th> valeur </th>\
+                    <th> commentaire </th>\
+                </tr>\
+            </thead>\
+            <tbody>\
+              <tr>\
+                <td> chauffage </td>\
+                <td align="center">\
+                  <form>\
+                    <select name="modeChauffage" v-model="chauffageMode" @change="switchChauffageMode()">\
+                      <option value="OFF">OFF</option>\
+                      <option value="PROG">PROG</option>\
+                      <option value="FORCE">FORCE</option>\
+                      <option value="MANUEL">MANUEL</option>\
+                    </select>\
+                  </form>\
+                </td>\
+                <td> activation du chauffage : \
+                  <br> OFF : chauffage eteint\
+                  <br> PROG : le calendrier (et la temperature) definissent la mise en route du circulateur\
+                  <br> FORCE : le chauffage est allumé sans régulation\
+                  <br> MANUEL : seule la temperature regule le chauffage\
+                </td>\
+              </tr>\
+              <tr>\
+                <td> plage calendrier </td>\
+                <td align="center">{{chauffageStatus}}</td>\
+                <td> ON si dans une plage active dans le calendrier</td>\
+              </tr>\
+              <tr>\
+                <td> circulateur </td>\
+                <td align="center"> {{circulateurOnOff}} </td>\
+                <td> circulateur en route si chauffage ON et dans une plage calendrier ON </td>\
+              </tr>\
+              <tr>\
+                <td> vanne chauffage </td>\
+                <td align="center">{{commandeVanneChauffage}}</td>\
+                <td> valeur de la commande appliquee a la vanne de chauffage </td>\
+              </tr>\
+              <tr>\
+                <td> Consigne </td>\
+                <td align="center">{{consigne}}</td>\
+                <td> Consigne de temperature </td>\
+              </tr>\
+              <tr>\
+                <td> temperature interieure </td>\
+                <td align="center">{{temperatureInterieure}}</td>\
+                <td> Valeur mesuree de temperature interieure </td>\
+              </tr>\
+              <tr>\
+                <td> temperature exterieure </td>\
+                <td align="center">{{temperatureExterieure}}</td>\
+                <td> Valeur mesuree de temperature iexterieure </td>\
+              </tr>\
+              <tr>\
+                <td> afficheur </td>\
+                <td align="center"> <a href="/switchAfficheurOnOff"> {{afficheurOnOff}} </a></td>\
+                <td> active ou non l\'afficheur de l\'arduino </td>\
+              </tr>\
+            </tbody>\
+          </table>\
+          <button @click="loadDatasCommande">refresh</button>\
+        </div>\
+      ',
+      methods: {
+        updateDateTime() {
+          const now = new Date();
+          this.currentDateTime = now.toLocaleString();
+        },
+        switchModeRegulation() {
+          fetch('/switchModeRegulation').then(r => {
+            this.loadDatasCommande();
+          })
+        },
+        switchChauffageMode() {
+          fetch('/switchChauffageMode?mode='+this.chauffageMode).then(r => {
+            this.loadDatasCommande();
+          })
+        },
+        loadDatasCommande() {
+          fetch('/getDatasCommande').then(r => r.json()).then(response => {
+            this.consigne = response.consigne;
+            this.chauffageMode = response.chauffageMode;
+            this.chauffageStatus = response.chauffageStatus;
+            this.circulateurOnOff = response.circulateurOnOff;
+            this.commandeVanneChauffage = response.commandeVanneChauffage;
+            this.temperatureInterieure = response.temperatureInterieure;
+            this.temperatureExterieure = response.temperatureExterieure;
+            this.afficheurOnOff = response.afficheurOnOff;
+          })
+          .catch(error => {
+            console.error(error);
+            this.consigne = null;
+          });
+        },
+      }
+    });
+
+    //----------------------------------------
+    //
+    //      calendrier
+    //
+    //----------------------------------------
+    app.component('calendrier', {
+    props: [],
+    data: function () {
+      return {
+        currentDateTime: '',
+        calendar: {},
+        nbPlage: 4,
+        edit: {}, 
+        days: ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"]
+      };
+    },
+    mounted() {
+      console.log("mounted");
+      this.load();
+      this.updateDateTime();
+      setInterval(this.updateDateTime, 1000);
+    },
+    template: '\
+        <div>\
+        <h1>Calendrier de chauffage</h1>\
+        <p>Nous somme le {{currentDateTime}}</p>\
+        <button @click="load">refresh</button>\
+        <table>\
+          <thead>\
+            <tr>\
+              <th></th>\
+              <th colspan="5" v-for="plage in nbPlage">plage {{plage}}</th>\
+            </tr>\
+            <tr>\
+              <th></th>\
+              <template v-for="plage in nbPlage">\
+                <th>début</th>\
+                <th>fin</th>\
+                <th>consigne</th>\
+                <th>actif?</th>\
+                <th>action</th>\
+              </template>\
+            </tr>\
+          </thead>\
+          <tbody>\
+            <tr v-for="day, idx in days">\
+              <td>{{day}}</td>\
+              <template v-for="plage in nbPlage">\
+                <template v-if="edit[`${idx}-${plage}`]">\
+                  <td><input type="number" size="4" v-model.number="edit[`${idx}-${plage}`].heureDebut"/>:<input type="number" size="4" v-model.number="edit[`${idx}-${plage}`].minuteDebut"/></td>\
+                  <td><input type="number" size="4" v-model.number="edit[`${idx}-${plage}`].heureFin"/>:<input type="number" size="4" v-model.number="edit[`${idx}-${plage}`].minuteFin"/></td>\
+                  <td><input type="number" size="6" v-model.number="edit[`${idx}-${plage}`].consigne"/></td>\
+                  <td><input type="checkbox" v-model.boolean="edit[`${idx}-${plage}`].chauffageOnOff"/></td>\
+                  <td>\
+                    <a href="#" @click.prevent="cancelEdit(idx, plage)">cancel</a>\
+                    <a href="#" @click.prevent="saveEdit(idx, plage)">save</a>\
+                  </td>\
+                </template>\
+                <template v-else-if="calendar && calendar[`jour${idx}`] && calendar[`jour${idx}`][`plage${plage}`] && calendar[`jour${idx}`][`plage${plage}`] && calendar[`jour${idx}`][`plage${plage}`].plageActive">\
+                  <td>{{formatDate(calendar[`jour${idx}`][`plage${plage}`].heureDebut, calendar[`jour${idx}`][`plage${plage}`].minuteDebut)}}</td>\
+                  <td>{{formatDate(calendar[`jour${idx}`][`plage${plage}`].heureFin, calendar[`jour${idx}`][`plage${plage}`].minuteFin)}}</td>\
+                  <td>{{formatConsigne(calendar[`jour${idx}`][`plage${plage}`].consigne)}}</td>\
+                  <td>{{calendar[`jour${idx}`][`plage${plage}`].chauffageOnOff ? "oui" : "non"}}</td>\
+                  <td>\
+                    <a href="#" @click.prevent="disablePlage(idx, plage)">disable</a>\
+                    <a href="#" @click.prevent="editPlage(idx, plage)">edit</a>\
+                    </td>\
+                </template>\
+                <template v-else>\
+                  <td colspan="4">inactive</td>\
+                  <td><a href="#" @click.prevent="editPlage(idx, plage)">edit</a></td>\
+                </template>\
+              </template>\
+            </tr>\
+          </tbody>\
+        </table>\
+        </div>\
+      ',
+      methods: {
+        load() {
+          fetch('calendrier.json').then(r => r.json()).then(calendar => {
+            this.calendar=calendar;
+          });
+        },
+        formatDate(heure, minute) {
+          return `${String(heure).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
+        },
+        editPlage(jour, plage) {
+            if (this.calendar && this.calendar[`jour${jour}`] && this.calendar[`jour${jour}`][`plage${plage}`] && this.calendar[`jour${jour}`][`plage${plage}`].plageActive) {
+          this.edit[`${jour}-${plage}`]=this.calendar[`jour${jour}`][`plage${plage}`];
+            } else {
+          this.edit[`${jour}-${plage}`]={
+                "modele":0,
+                "heureDebut":0,
+                "minuteDebut":0,
+                "heureFin":23,
+                "minuteFin":59,
+                "chauffageOnOff":false,
+                "consigne":200,
+                "plageActive":true
+              };
+            }
+            console.log("this.edit",this.edit);
+        },
+        disablePlage(jour, plage) {
+          let active=true;
+          if (this.calendar && this.calendar[`jour${jour}`] && this.calendar[`jour${jour}`][`plage${plage}`] && this.calendar[`jour${jour}`][`plage${plage}`].plageActive) {
+            active=false;
+          }
+          if (DEBUG) {
+            this.calendar[`jour${jour}`][`plage${plage}`].plageActive=active;
+          } else {
+            //send to backend
+            this.load();
+          }
+        },
+        cancelEdit(jour, plage) {
+          delete(this.edit[`${jour}-${plage}`]);
+        },
+        saveEdit(jour, plage) {
+          console.log("saveConfig", `jour${jour}`, `plage${plage}`, JSON.stringify(this.edit[`${jour}-${plage}`], null, 2));
+          if (DEBUG) {
+            this.calendar[`jour${jour}`][`plage${plage}`]=this.edit[`${jour}-${plage}`];
+            delete(this.edit[`${jour}-${plage}`]);
+          } else {
+            //send to backend
+            delete(this.edit[`${jour}-${plage}`]);
+            this.load();
+          }
+        },
+        formatConsigne(consigne) {
+          return `${consigne/10}.${consigne%10} °C`;
+        },
+        updateDateTime() {
+          const now = new Date();
+          this.currentDateTime = now.toLocaleString();
+        },
+      }
+    });
+
+    //----------------------------------------
+    //
+    //      temperature
+    //
+    //----------------------------------------
+    app.component('temperature', {
+      props: [],
+      data: function () {
+        return {
+          currentDateTime: '',
+          temperatureInterieure: null,
+          temperatureExterieure: null,
+          ipTempInt: null,
+          ipTempExt: null,
+          consigne: null,
+        };
+      },
+      mounted() {
+        this.updateDateTime();
+        setInterval(this.updateDateTime, 1000);
+        this.loadDatasTemperatures();
+      },
+      template: "\
+        <div>\
+          <h1>Temperatures</h1>\
+          <p>Nous somme le {{currentDateTime}}</p>\
+        </div>\
+        <div>\
+          <form>\
+            <table>\
+              <thead>\
+                <tr>\
+                  <th>variable</th>\
+                  <th>valeur</th>\
+                </tr>\
+              </thead>\
+              <tbody>\
+                <tr>\
+                  <td>Temperature interieure</td>\
+                  <td>{{temperatureInterieure}}</td>\
+                </tr>\
+                <tr>\
+                  <td>Temperature exterieure</td>\
+                  <td>{{temperatureExterieure}}</td>\
+                </tr>\
+                <tr>\
+                  <td>Consigne de chauffage</td>\
+                  <td>\
+                    <input id='consigne' name='consigne' v-model='consigne' @keyup.enter='updateConsigne()'/>\
+                  </td>\
+                </tr>\
+                <tr>\
+                  <td>Adresse IP capteur temp int</td>\
+                  <td>\
+                    <input id='ipTempInt' name='ipTempInt' v-model='ipTempInt' @keyup.enter='updateIpTempInt()'/>\
+                  </td>\
+                </tr>\
+                <tr>\
+                  <td>Adresse IP capteur temp ext</td>\
+                  <td>\
+                    <input id='ipTempExt' name='ipTempExt' v-model='ipTempExt' @keyup.enter='updateIpTempExt()'/>\
+                  </td>\
+                </tr>\
+              </tbody>\
+            </table>\
+          </form>\
+          <button @click='loadDatasTemperatures'>refresh</button>\
+        </div>\
+        ",
+      methods: {
+        updateDateTime() {
+          const now = new Date();
+          this.currentDateTime = now.toLocaleString();
+        },
+        updateConsigne() {
+          fetch('/updateConsigne?consigne='+this.consigne).then(r => {
+            this.loadDatasTemperatures();
+          })
+        },
+        updateIpTempInt() {
+          fetch('/updateIpTempInt?ip='+this.ipTempInt).then(r => {
+            this.loadDatasTemperatures();
+          })
+        },
+        updateIpTempExt() {
+          fetch('/updateIpTempExt?ip='+this.ipTempExt).then(r => {
+            this.loadDatasTemperatures();
+          })
+        },
+        loadDatasTemperatures() {
+          fetch('/getDatasTemperatures').then(r => r.json()).then(response => {
+            this.consigne = response.consigne;
+            this.temperatureInterieure = response.temperatureInterieure;
+            this.temperatureExterieure = response.temperatureExterieure;
+            this.ipTempInt = response.ipTempInt;
+            this.ipTempExt = response.ipTempExt;
+          })
+          .catch(error => {
+            console.error(error);
+            this.consigne = null;
+          });
+        },
+      }
+    });
+
+    //----------------------------------------
+    //
+    //      configuration
+    //
+    //----------------------------------------
+    app.component('configuration', {
+    props: [],
+    data: function () {
+      return {
+        currentDateTime: '',
+        environnements: {},
+        consigne: "NC",
+        envSelectionne: "NC",
+        pinRelai: "NC",
+        heureEteHivers: "NC",
+        chauffageOnOff: "NC",
+        adresseIpTempInt: "NC",
+        consigneJour: "NC",
+        consigneNuit: "NC",
+        consigneAbsent: "NC",
+      };
+    },
+    mounted() {
+      this.loadEnvironnements();
+      this.loadDatasConfig();
+      this.updateDateTime();
+      setInterval(this.updateDateTime, 1000);
+    },
+    template: '\
+      <div>\
+        <h1>Configuration</h1>\
+        <p>Nous somme le {{currentDateTime}}</p>\
+        <p>Cette page affiche les parametres contenus dans la carte SD</p>\
+        <p>Pour modifier l\'environnement a utiliser ; il faut éditer le fichier de configuration sur la carte SD</p>\
+      </div>\
+      <div>\
+        <table>\
+          <thead>\
+            <tr>\
+              <th>variable</th>\
+              <th>valeur</th>\
+            </tr>\
+          </thead>\
+          <tbody>\
+              <tr>\
+                  <td>Consigne</td>\
+                  <td>{{formatConsigne(consigne)}}</td>\
+              </tr>\
+              <tr>\
+                  <td>Environnement utilise</td>\
+                  <td>{{envSelectionne}}</td>\
+              </tr>\
+              <tr>\
+                  <td>Pin relai</td>\
+                  <td>{{pinRelai}}</td>\
+              </tr>\
+              <tr>\
+                  <td>Heure été/hiver</td>\
+                  <td>{{heureEteHivers ? "été" : "hivers"}}</td>\
+              </tr>\
+              <tr>\
+                  <td>chauffage</td>\
+                  <td>{{chauffageOnOff ? "ON" : "OFF"}}</td>\
+              </tr>\
+              <tr>\
+                  <td>Adresse capteur temp interieure</td>\
+                  <td>\
+                    <form >\
+                      <input id="ipTempInt" name="ipTempInt" valeur="{{adresseIpTempInt}}">\
+                    </form>\
+                  </td>\
+              </tr>\
+              <tr>\
+                  <td>Référence consigne jour</td>\
+                  <td>{{formatConsigne(parseInt(consigneJour))}}</td>\
+              </tr>\
+              <tr>\
+                  <td>Référence consigne nuit</td>\
+                  <td>{{formatConsigne(parseInt(consigneNuit))}}</td>\
+              </tr>\
+              <tr>\
+                  <td>Référence consigne absent</td>\
+                  <td>{{formatConsigne(parseInt(consigneAbsent))}}</td>\
+              </tr>\
+          </tbody>\
+        </table>\
+      </div>\
+      <p>liste des environnements definis</p>\
+      <div>\
+        <table>\
+          <thead>\
+            <tr>\
+              <th>id</th>\
+              <th>nom</th>\
+              <th>Wifi SSID</th>\
+              <th>Wifi pwd</th>\
+            </tr>\
+          </thead>\
+          <tbody>\
+            <tr v-for="environnement, idx in environnements">\
+              <td>{{idx}}</td>\
+              <td>{{environnements[idx].nom}}</td>\
+              <td>{{environnements[idx].ssid}}</td>\
+              <td>{{environnements[idx].pwd}}</td>\
+            </tr>\
+          </tbody>\
+        </table>\
+      </div>\
+      <div>\
+        <p><a href="/sauveConfig">  sauver la configuration </a></p>\
+      </div>\
+      <div>\
+        <p><a href="/listFichierConfig">  afficher fichier de configuration </a></p>\
+      </div>\
+    ',
+    methods: {
+      loadEnvironnements() {
+      fetch('environnements.json').then(r => r.json()).then(environnements => {
+        this.environnements=environnements;
+        console.log("environnelents : " + environnements);
+        });
+      },
+      loadDatasConfig() {
+        fetch('/getDatasConfig').then(r => r.json()).then(response => {
+          this.consigne = response.consigne;
+          this.envSelectionne = response.envSelectionne;
+          this.pinRelai = response.pinRelai;
+          this.regulation = response.regulation;
+          this.heureEteHivers = response.heureEteHivers;
+          this.chauffageOnOff = response.chauffageOnOff;
+          this.adresseIpTempInt = response.adresseIpTempInt;
+          this.consigneJour = response.consigneJour;
+          this.consigneNuit = response.consigneNuit;
+          this.consigneAbsent = response.consigneAbsent;
+        })
+        .catch(error => {
+          console.error(error);
+          this.consigne = null;
+        });
+        console.log("consigne = " + this.consigne);
+      },
+      formatConsigne(consigne) {
+        return `${consigne/10}.${consigne%10} °C`;
+      },
+      updateDateTime() {
+        const now = new Date();
+        this.currentDateTime = now.toLocaleString();
+      },
+    }
+  });
+
+  //----------------------------------------
+  //
+  //      calendrier2
+  //
+  //----------------------------------------
+  app.component('calendrier2', {
+    props: [],
+    data: function () {
+      return {
+        currentDateTime: '',
+        calendar: {},
+        nbPlage: 5,
+        edit: {}, 
+        days: ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"],
+        debut: null,
+        fin: null,
+      };
+    },
+    mounted() {
+      console.log("mounted");
+      this.load();
+      this.updateDateTime();
+      setInterval(this.updateDateTime, 1000);
+    },
+    template: '\
+      <div>\
+        <h1>Configuration</h1>\
+        <p>Nous somme le {{currentDateTime}}</p>\
+        <p>Cette page affiche les parametres contenus dans la carte SD</p>\
+        <p>Pour modifier l\'environnement a utiliser ; il faut éditer le fichier de configuration sur la carte SD</p>\
+      </div>\
+      <div>\
+        <table>\
+          <thead>\
+            <tr>\
+              <th></th>\
+              <th colspan="5" v-for="plage in nbPlage">plage {{plage}}</th>\
+            </tr>\
+            <tr>\
+              <th></th>\
+              <template v-for="plage in nbPlage">\
+                <th>début</th>\
+                <th>fin</th>\
+                <th>consigne</th>\
+                <th>actif?</th>\
+                <th>action</th>\
+              </template>\
+            </tr>\
+          </thead>\
+          <tbody>\
+            <tr v-for="day, idx in days">\
+              <td>{{day}}</td>\
+              <template v-for="plage in nbPlage">\
+                <template v-if="calendar[${idx}][${plage}].plageActive">\
+                  <!--td>{{formatDate(calendar[`jour${idx}`][`plage${plage}`].heureDebut, calendar[`jour${idx}`][`plage${plage}`].minuteDebut)}}</td>\
+                  <td>{{formatDate(calendar[`jour${idx}`][`plage${plage}`].heureFin, calendar[`jour${idx}`][`plage${plage}`].minuteFin)}}</td>\
+                  <td>{{formatConsigne(calendar[`jour${idx}`][`plage${plage}`].consigne)}}</td>\
+                  <td>{{calendar[`jour${idx}`][`plage${plage}`].chauffageOnOff ? "oui" : "non"}}</td-->\
+                  <td></td>\
+                  <td></td>\
+                  <td></td>\
+                  <td></td>\
+                  <td>\
+                    <a href="#" @click.prevent="disablePlage(idx, plage)">disable</a>\
+                    <a href="#" @click.prevent="editPlage(idx, plage)">edit</a>\
+                    </td>\
+                </template>\
+                <template v-else>\
+                  <td colspan="4">inactive</td>\
+                  <td><a href="#" @click.prevent="editPlage(idx, plage)">edit</a></td>\
+                </template>\
+              </template>\
+            </tr>\
+          </tbody>\
+        </table>\
+      </div>\
+      ',
+    methods: {
+      load() {
+        fetch('calendrier2.json').then(r => r.json()).then(calendar => {
+          this.calendar=calendar;
+        });
+      },
+      formatDate(heure, minute) {
+        return `${String(heure).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
+      },
+      editPlage(jour, plage) {
+          if (this.calendar && this.calendar[`jour${jour}`] && this.calendar[`jour${jour}`][`plage${plage}`] && this.calendar[`jour${jour}`][`plage${plage}`].plageActive) {
+        this.edit[`${jour}-${plage}`]=this.calendar[`jour${jour}`][`plage${plage}`];
+          } else {
+        this.edit[`${jour}-${plage}`]={
+              "modele":0,
+              "heureDebut":0,
+              "minuteDebut":0,
+              "heureFin":23,
+              "minuteFin":59,
+              "chauffageOnOff":false,
+              "consigne":200,
+              "plageActive":true
+            };
+          }
+          console.log("this.edit",this.edit);
+      },
+      disablePlage(jour, plage) {
+        let active=true;
+        if (this.calendar && this.calendar[`jour${jour}`] && this.calendar[`jour${jour}`][`plage${plage}`] && this.calendar[`jour${jour}`][`plage${plage}`].plageActive) {
+          active=false;
+        }
+        if (DEBUG) {
+          this.calendar[`jour${jour}`][`plage${plage}`].plageActive=active;
+        } else {
+          //send to backend
+          this.load();
+        }
+      },
+      cancelEdit(jour, plage) {
+        delete(this.edit[`${jour}-${plage}`]);
+      },
+      saveEdit(jour, plage) {
+        console.log("saveConfig", `jour${jour}`, `plage${plage}`, JSON.stringify(this.edit[`${jour}-${plage}`], null, 2));
+        if (DEBUG) {
+          this.calendar[`jour${jour}`][`plage${plage}`]=this.edit[`${jour}-${plage}`];
+          delete(this.edit[`${jour}-${plage}`]);
+        } else {
+          //send to backend
+          delete(this.edit[`${jour}-${plage}`]);
+          this.load();
+        }
+      },
+      formatConsigne(consigne) {
+        return `${consigne/10}.${consigne%10} °C`;
+      },
+      updateDateTime() {
+        const now = new Date();
+        this.currentDateTime = now.toLocaleString();
+      },
+    }
+  });
+
+  app.mount('#app');
+
+  </script>
+</html>

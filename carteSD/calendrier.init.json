@@ -1,0 +1,401 @@
+{
+	"jour0": {
+		"plage0": {
+			"modele": "1",
+			"nomPlage": "Lever",
+			"heureDebut": "6",
+			"minuteDebut": "30",
+			"heureFin": "8",
+			"minuteFin": "30",
+			"chauffageOnOff": "1",
+			"consigne": "200",
+			"plageActive": "1"
+		},
+		"plage1": {
+			"modele": "2",
+			"nomPlage": "Coucher",
+			"heureDebut": "21",
+			"minuteDebut": "0",
+			"heureFin": "23",
+			"minuteFin": "0",
+			"chauffageOnOff": "1",
+			"consigne": "200",
+			"plageActive": "1"
+		},
+		"plage2": {
+			"modele": "-1",
+			"nomPlage": "",
+			"heureDebut": "-1",
+			"minuteDebut": "-1",
+			"heureFin": "-1",
+			"minuteFin": "-1",
+			"chauffageOnOff": "0",
+			"consigne": "-1",
+			"plageActive": "0"
+		},
+		"plage3": {
+			"modele": "-1",
+			"nomPlage": "",
+			"heureDebut": "-1",
+			"minuteDebut": "-1",
+			"heureFin": "-1",
+			"minuteFin": "-1",
+			"chauffageOnOff": "0",
+			"consigne": "-1",
+			"plageActive": "0"
+		},
+		"plage4": {
+			"modele": "0",
+			"nomPlage": "",
+			"heureDebut": "0",
+			"minuteDebut": "0",
+			"heureFin": "23",
+			"minuteFin": "59",
+			"chauffageOnOff": "0",
+			"consigne": "200",
+			"plageActive": "0"
+		}
+	},
+	"jour1": {
+		"plage0": {
+			"modele": "-1",
+			"nomPlage": "",
+			"heureDebut": "-1",
+			"minuteDebut": "-1",
+			"heureFin": "-1",
+			"minuteFin": "-1",
+			"chauffageOnOff": "0",
+			"consigne": "-1",
+			"plageActive": "0"
+		},
+		"plage1": {
+			"modele": "-1",
+			"nomPlage": "",
+			"heureDebut": "-1",
+			"minuteDebut": "-1",
+			"heureFin": "-1",
+			"minuteFin": "-1",
+			"chauffageOnOff": "0",
+			"consigne": "-1",
+			"plageActive": "0"
+		},
+		"plage2": {
+			"modele": "-1",
+			"nomPlage": "",
+			"heureDebut": "-1",
+			"minuteDebut": "-1",
+			"heureFin": "-1",
+			"minuteFin": "-1",
+			"chauffageOnOff": "0",
+			"consigne": "-1",
+			"plageActive": "0"
+		},
+		"plage3": {
+			"modele": "-1",
+			"nomPlage": "",
+			"heureDebut": "-1",
+			"minuteDebut": "-1",
+			"heureFin": "-1",
+			"minuteFin": "-1",
+			"chauffageOnOff": "0",
+			"consigne": "-1",
+			"plageActive": "0"
+		},
+		"plage4": {
+			"modele": "0",
+			"nomPlage": "",
+			"heureDebut": "0",
+			"minuteDebut": "0",
+			"heureFin": "23",
+			"minuteFin": "59",
+			"chauffageOnOff": "0",
+			"consigne": "200",
+			"plageActive": "0"
+		}
+	},
+	"jour2": {
+		"plage0": {
+			"modele": "-1",
+			"nomPlage": "",
+			"heureDebut": "-1",
+			"minuteDebut": "-1",
+			"heureFin": "-1",
+			"minuteFin": "-1",
+			"chauffageOnOff": "0",
+			"consigne": "-1",
+			"plageActive": "0"
+		},
+		"plage1": {
+			"modele": "-1",
+			"nomPlage": "",
+			"heureDebut": "-1",
+			"minuteDebut": "-1",
+			"heureFin": "-1",
+			"minuteFin": "-1",
+			"chauffageOnOff": "0",
+			"consigne": "-1",
+			"plageActive": "0"
+		},
+		"plage2": {
+			"modele": "-1",
+			"nomPlage": "",
+			"heureDebut": "-1",
+			"minuteDebut": "-1",
+			"heureFin": "-1",
+			"minuteFin": "-1",
+			"chauffageOnOff": "0",
+			"consigne": "-1",
+			"plageActive": "0"
+		},
+		"plage3": {
+			"modele": "-1",
+			"nomPlage": "",
+			"heureDebut": "-1",
+			"minuteDebut": "-1",
+			"heureFin": "-1",
+			"minuteFin": "-1",
+			"chauffageOnOff": "0",
+			"consigne": "-1",
+			"plageActive": "0"
+		},
+		"plage4": {
+			"modele": "0",
+			"nomPlage": "",
+			"heureDebut": "0",
+			"minuteDebut": "0",
+			"heureFin": "23",
+			"minuteFin": "59",
+			"chauffageOnOff": "0",
+			"consigne": "200",
+			"plageActive": "0"
+		}
+	},
+	"jour3": {
+		"plage0": {
+			"modele": "-1",
+			"nomPlage": "",
+			"heureDebut": "-1",
+			"minuteDebut": "-1",
+			"heureFin": "-1",
+			"minuteFin": "-1",
+			"chauffageOnOff": "0",
+			"consigne": "-1",
+			"plageActive": "0"
+		},
+		"plage1": {
+			"modele": "-1",
+			"nomPlage": "",
+			"heureDebut": "-1",
+			"minuteDebut": "-1",
+			"heureFin": "-1",
+			"minuteFin": "-1",
+			"chauffageOnOff": "0",
+			"consigne": "-1",
+			"plageActive": "0"
+		},
+		"plage2": {
+			"modele": "-1",
+			"nomPlage": "",
+			"heureDebut": "-1",
+			"minuteDebut": "-1",
+			"heureFin": "-1",
+			"minuteFin": "-1",
+			"chauffageOnOff": "0",
+			"consigne": "-1",
+			"plageActive": "0"
+		},
+		"plage3": {
+			"modele": "-1",
+			"nomPlage": "",
+			"heureDebut": "-1",
+			"minuteDebut": "-1",
+			"heureFin": "-1",
+			"minuteFin": "-1",
+			"chauffageOnOff": "0",
+			"consigne": "-1",
+			"plageActive": "0"
+		},
+		"plage4": {
+			"modele": "0",
+			"nomPlage": "",
+			"heureDebut": "0",
+			"minuteDebut": "0",
+			"heureFin": "23",
+			"minuteFin": "59",
+			"chauffageOnOff": "0",
+			"consigne": "200",
+			"plageActive": "0"
+		}
+	},
+	"jour4": {
+		"plage0": {
+			"modele": "-1",
+			"nomPlage": "",
+			"heureDebut": "-1",
+			"minuteDebut": "-1",
+			"heureFin": "-1",
+			"minuteFin": "-1",
+			"chauffageOnOff": "0",
+			"consigne": "-1",
+			"plageActive": "0"
+		},
+		"plage1": {
+			"modele": "-1",
+			"nomPlage": "",
+			"heureDebut": "-1",
+			"minuteDebut": "-1",
+			"heureFin": "-1",
+			"minuteFin": "-1",
+			"chauffageOnOff": "0",
+			"consigne": "-1",
+			"plageActive": "0"
+		},
+		"plage2": {
+			"modele": "-1",
+			"nomPlage": "",
+			"heureDebut": "-1",
+			"minuteDebut": "-1",
+			"heureFin": "-1",
+			"minuteFin": "-1",
+			"chauffageOnOff": "0",
+			"consigne": "-1",
+			"plageActive": "0"
+		},
+		"plage3": {
+			"modele": "-1",
+			"nomPlage": "",
+			"heureDebut": "-1",
+			"minuteDebut": "-1",
+			"heureFin": "-1",
+			"minuteFin": "-1",
+			"chauffageOnOff": "0",
+			"consigne": "-1",
+			"plageActive": "0"
+		},
+		"plage4": {
+			"modele": "0",
+			"nomPlage": "",
+			"heureDebut": "0",
+			"minuteDebut": "0",
+			"heureFin": "23",
+			"minuteFin": "59",
+			"chauffageOnOff": "0",
+			"consigne": "200",
+			"plageActive": "0"
+		}
+	},
+	"jour5": {
+		"plage0": {
+			"modele": "-1",
+			"nomPlage": "",
+			"heureDebut": "-1",
+			"minuteDebut": "-1",
+			"heureFin": "-1",
+			"minuteFin": "-1",
+			"chauffageOnOff": "0",
+			"consigne": "-1",
+			"plageActive": "0"
+		},
+		"plage1": {
+			"modele": "-1",
+			"nomPlage": "",
+			"heureDebut": "-1",
+			"minuteDebut": "-1",
+			"heureFin": "-1",
+			"minuteFin": "-1",
+			"chauffageOnOff": "0",
+			"consigne": "-1",
+			"plageActive": "0"
+		},
+		"plage2": {
+			"modele": "-1",
+			"nomPlage": "",
+			"heureDebut": "-1",
+			"minuteDebut": "-1",
+			"heureFin": "-1",
+			"minuteFin": "-1",
+			"chauffageOnOff": "0",
+			"consigne": "-1",
+			"plageActive": "0"
+		},
+		"plage3": {
+			"modele": "-1",
+			"nomPlage": "",
+			"heureDebut": "-1",
+			"minuteDebut": "-1",
+			"heureFin": "-1",
+			"minuteFin": "-1",
+			"chauffageOnOff": "0",
+			"consigne": "-1",
+			"plageActive": "0"
+		},
+		"plage4": {
+			"modele": "0",
+			"nomPlage": "",
+			"heureDebut": "0",
+			"minuteDebut": "0",
+			"heureFin": "23",
+			"minuteFin": "59",
+			"chauffageOnOff": "0",
+			"consigne": "200",
+			"plageActive": "0"
+		}
+	},
+	"jour6": {
+		"plage0": {
+			"modele": "-1",
+			"nomPlage": "",
+			"heureDebut": "-1",
+			"minuteDebut": "-1",
+			"heureFin": "-1",
+			"minuteFin": "-1",
+			"chauffageOnOff": "0",
+			"consigne": "-1",
+			"plageActive": "0"
+		},
+		"plage1": {
+			"modele": "-1",
+			"nomPlage": "",
+			"heureDebut": "-1",
+			"minuteDebut": "-1",
+			"heureFin": "-1",
+			"minuteFin": "-1",
+			"chauffageOnOff": "0",
+			"consigne": "-1",
+			"plageActive": "0"
+		},
+		"plage2": {
+			"modele": "-1",
+			"nomPlage": "",
+			"heureDebut": "-1",
+			"minuteDebut": "-1",
+			"heureFin": "-1",
+			"minuteFin": "-1",
+			"chauffageOnOff": "0",
+			"consigne": "-1",
+			"plageActive": "0"
+		},
+		"plage3": {
+			"modele": "-1",
+			"nomPlage": "",
+			"heureDebut": "-1",
+			"minuteDebut": "-1",
+			"heureFin": "-1",
+			"minuteFin": "-1",
+			"chauffageOnOff": "0",
+			"consigne": "-1",
+			"plageActive": "0"
+		},
+		"plage4": {
+			"modele": "0",
+			"nomPlage": "",
+			"heureDebut": "0",
+			"minuteDebut": "0",
+			"heureFin": "23",
+			"minuteFin": "59",
+			"chauffageOnOff": "0",
+			"consigne": "200",
+			"plageActive": "0"
+		}
+	}
+}
