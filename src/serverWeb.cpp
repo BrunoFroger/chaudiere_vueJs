@@ -92,6 +92,30 @@ void initServerWeb(void){
         Serial.println("requete /scripts.js");
         request->send(SDFS,"/chaudiere/html/scripts.js", "text/javascript");});
 
+    server.on("/main.js", HTTP_GET, [](AsyncWebServerRequest * request){
+        Serial.println("requete /main.js");
+        request->send(SDFS,"/chaudiere/html/main.js", "text/javascript");});
+
+    server.on("/home.js", HTTP_GET, [](AsyncWebServerRequest * request){
+        Serial.println("requete /home.js");
+        request->send(SDFS,"/chaudiere/html/home.js", "text/javascript");});
+
+    server.on("/commande.js", HTTP_GET, [](AsyncWebServerRequest * request){
+        Serial.println("requete /commande.js");
+        request->send(SDFS,"/chaudiere/html/commande.js", "text/javascript");});
+
+    server.on("/calendrier.js", HTTP_GET, [](AsyncWebServerRequest * request){
+        Serial.println("requete /calendrier.js");
+        request->send(SDFS,"/chaudiere/html/calendrier.js", "text/javascript");});
+
+    server.on("/temperature.js", HTTP_GET, [](AsyncWebServerRequest * request){
+        Serial.println("requete /temperature.js");
+        request->send(SDFS,"/chaudiere/html/temperature.js", "text/javascript");});
+
+    server.on("/configuration.js", HTTP_GET, [](AsyncWebServerRequest * request){
+        Serial.println("requete /configuration.js");
+        request->send(SDFS,"/chaudiere/html/configuration.js", "text/javascript");});
+
     //----------------------
     //
     // pages fonctionnelles
