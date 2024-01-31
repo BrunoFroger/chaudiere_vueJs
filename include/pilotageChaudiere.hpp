@@ -16,14 +16,18 @@
 
     extern void initChaudiere(void);
     extern void refreshChaudiere(void);
-    extern bool getCirculateurOnOff(void);
+
     extern int getChauffageMode();
-    extern char *getChauffageModeString();
     extern void setChauffageMode(int mode);
+    extern char *getChauffageModeString();
+
     extern int getCommandeVanneChauffage();
     extern void setCommandeVanneChauffage(int valeur);
+
     extern int getPinRelai(void);
     extern void setPinRelai(int pin);
+    
+    extern bool getCirculateurOnOff(void);
     extern void setCirculateurOnOff(bool etat);
 
 #endif

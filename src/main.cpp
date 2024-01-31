@@ -29,7 +29,7 @@
     #error Unsupported board selection.
 #endif
 
-int loopDelay = 100;
+int loopDelay = 1;
 
 long refreshNtpDelay = 0;
 long refreshTemperaturespDelay = 0;
@@ -54,7 +54,8 @@ void stop(void){
 //
 //=================================================
 void setup(void){
-    Serial.begin(115200);
+    //Serial.begin(115200);
+    Serial.begin(460800);
     int timeoutInitSerial = 100;
     while (timeoutInitSerial-- > 0)
     {

@@ -45,8 +45,8 @@ struct structEnvironnement{
     char nom[20];
     char wifiSsid[20];
     char wifiPwd[25];
-    char ipTempInt[20];
-    char ipTempExt[20];
+    char ipTempInt[17];
+    char ipTempExt[17];
     int available = SSID_NOTCHECKED;
 };
 
@@ -186,7 +186,7 @@ void setEnvironnement(String envName){
 //----------------------------------------------
 void analyseLigne(String ligne){
     String tmpData;
-    //Serial.println("sdCard => analyse ligne : " + ligne);
+    //Serial.println("sdCard config => analyse ligne : " + ligne);
     //Serial.println(ligne);
     if (ligne.length() == 0){
         if (insideEnvironnement){
@@ -270,8 +270,7 @@ void analyseLigne(String ligne){
     } else if (ligne.startsWith("PIN_RELAI")){
         // fixe la broche sur laquelle est connectee le relai de pilotage
         //Serial.print("AnalyseLigne : pinRelai = "); Serial.println(tmpData.toInt());
-        // TODO
-        //setPinRelai(tmpData.toInt());
+        setPinRelai(tmpData.toInt());
     } else if (ligne.startsWith("WIFI_MODE")){
         structEnvironnement *env = &listeEnvironnement[indexEnvironnementCourant];
         if ((tmpData == "STATION") || (tmpData == "AP") ){
@@ -287,7 +286,7 @@ void analyseLigne(String ligne){
 
 //----------------------------------------------
 //
-//      readConfig
+//      sdCardOpenFile
 //
 //----------------------------------------------
 File sdCardOpenFile(char *filename){
@@ -302,15 +301,19 @@ File sdCardOpenFile(char *filename){
 //----------------------------------------------
 void readConfig(void){
     String ligne;
-    String filename = "/chaudiere/config.txt";
+    String filename = "/config.txt";
     myFile = SD.open(filename);
 
     if (myFile){
-        Serial.println("Analyse du fichier de config sur carte SD");
+        Serial.println("readConfig => Analyse du fichier de config sur carte SD");
         while (myFile.available()){
+            ligne = "";
+            //Serial.println("readConfig => analyse ligne : ");
             ligne = myFile.readStringUntil('\n');
+            //Serial.println(ligne);
             analyseLigne(ligne);
         }
+        //Serial.println("readConfig => fin analyse du fichier de config");
         myFile.close();
     } else {
         Serial.print("Le fichier ");
@@ -447,13 +450,12 @@ void writeConfig(void){
     }
     page += "ENV = " + String(environnement) + "\n";
     page += "PIN_RELAI = ";
-    // TODO
-    //page += getPinRelai();
+    page += getPinRelai();
     page += "\n";
     Serial.print(page);
 
 
-    String filename = "/chaudiere/config.txt";
+    String filename = "/config.txt";
     if (SD.exists(filename)){
         SD.remove(filename);
     }
@@ -531,8 +533,7 @@ bool sdcardInit(void){
     Serial.print("environnement   = ");
     Serial.println(environnement);
     Serial.print("pin relai       = ");
-    // TODO
-        //Serial.println(getPinRelai());
+    Serial.println(getPinRelai());
     listeEnvironnements();
     SDCardInitOK=true;
     return true;

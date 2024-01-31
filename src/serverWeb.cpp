@@ -18,6 +18,9 @@
 #include "pilotageChaudiere.hpp"
 #include "calendrier.hpp"
 
+String datas="";
+int delaySendDatas=100;
+
 //----------------------------------------------
 //
 //      initServerWeb
@@ -46,22 +49,25 @@ void initServerWeb(void){
     //----------------------
     server.onNotFound([](AsyncWebServerRequest *request){ 
         Serial.println("requete /pageNotFound.html");
-        request->send(SDFS, "/chaudiere/html/pageNotFound.html", "text/html"); });
+        delay(delaySendDatas);
+        request->send(SDFS, "/pageNotFound.html", "text/html"); });
         //request->send(LittleFS, "/pageNotFound.html", "text/html"); });
 
     server.on("/favicon.ico", HTTP_GET, [](AsyncWebServerRequest * request){
         Serial.println("requete /favicon.ico");
-        request->send(SDFS, "/chaudiere/html/favicon.png", "image/png");});
+        request->send(SDFS, "/favicon.png", "image/png");});
         //request->send(LittleFS, "/favicon.png", "image/png");});
 
     server.on("/entete.html", HTTP_GET, [](AsyncWebServerRequest * request){
         Serial.println("requete /entete.html");
-        request->send(SDFS, "/chaudiere/html/entete.html", "text/html");});
+        delay(delaySendDatas);
+        request->send(SDFS, "/entete.html", "text/html");});
         //request->send(LittleFS, "/entete.html", "text/html");});
 
     server.on("/piedPage.html", HTTP_GET, [](AsyncWebServerRequest * request){
         Serial.println("requete /piedPage.html");
-        request->send(SDFS, "/chaudiere/html/piedPage.html", "text/html");});
+        delay(delaySendDatas);
+        request->send(SDFS, "/piedPage.html", "text/html");});
         //request->send(LittleFS, "/piedPage.html", "text/html");});
 
     //----------------------
@@ -70,8 +76,12 @@ void initServerWeb(void){
     //    
     //----------------------
     server.on("/style.css", HTTP_GET, [](AsyncWebServerRequest * request){
-        Serial.println("requete /style.css");
-        request->send(SDFS, "/chaudiere/html/style.css", "text/css");});
+        // Serial.println("requete /style.css");
+        // request->send(SDFS, "/style.css", "text/css");});
+        datas = "";
+        datas = lireFichier("style.css");
+        //delay(delaySendDatas);
+        request->send(200, "text/css", datas);});
         //request->send(LittleFS, "/style.css", "text/css");});
 
     //----------------------
@@ -82,39 +92,74 @@ void initServerWeb(void){
 
     server.on("/w3data.js", HTTP_GET, [](AsyncWebServerRequest * request){
         Serial.println("requete /w3data.js");
-        request->send(SDFS, "/chaudiere/html/w3data.js", "text/javascript");});
+        // request->send(SDFS, "/w3data.js", "text/javascript");});
+        datas = "";
+        datas = lireFichier("w3data.js");
+        request->send(200, "text/javascript", datas);});
 
     server.on("/vue.global.js", HTTP_GET, [](AsyncWebServerRequest * request){
         Serial.println("requete /vue.global.js");
-        request->send(SDFS,"/chaudiere/html/vue.global.js", "text/javascript");});
+        // request->send(SDFS,"/vue.global.js", "text/javascript");});
+        datas = "";
+        datas = lireFichier("vue.global.js");
+        request->send(200, "text/javascript", datas);});
 
     server.on("/scripts.js", HTTP_GET, [](AsyncWebServerRequest * request){
         Serial.println("requete /scripts.js");
-        request->send(SDFS,"/chaudiere/html/scripts.js", "text/javascript");});
+        // request->send(SDFS,"/scripts.js", "text/javascript");});
+        datas = "";
+        datas = lireFichier("scripts.js");
+        delay(delaySendDatas);
+        request->send(200, "text/javascript", datas);});
 
     server.on("/main.js", HTTP_GET, [](AsyncWebServerRequest * request){
         Serial.println("requete /main.js");
-        request->send(SDFS,"/chaudiere/html/main.js", "text/javascript");});
+        // request->send(SDFS,"/main.js", "text/javascript");});
+        datas = "";
+        datas = lireFichier("main.js");
+        delay(delaySendDatas);
+        //Serial.println(datas);
+        request->send(200, "text/javascript", datas);});
 
     server.on("/home.js", HTTP_GET, [](AsyncWebServerRequest * request){
         Serial.println("requete /home.js");
-        request->send(SDFS,"/chaudiere/html/home.js", "text/javascript");});
+        // request->send(SDFS,"/home.js", "text/javascript");});
+        datas = "";
+        datas = lireFichier("home.js");
+        delay(delaySendDatas);
+        request->send(200, "text/javascript", datas);});
 
     server.on("/commande.js", HTTP_GET, [](AsyncWebServerRequest * request){
         Serial.println("requete /commande.js");
-        request->send(SDFS,"/chaudiere/html/commande.js", "text/javascript");});
+        // request->send(SDFS,"/commande.js", "text/javascript");});
+        datas = "";
+        datas = lireFichier("commande.js");
+        delay(delaySendDatas);
+        request->send(200, "text/javascript", datas);});
 
     server.on("/calendrier.js", HTTP_GET, [](AsyncWebServerRequest * request){
         Serial.println("requete /calendrier.js");
-        request->send(SDFS,"/chaudiere/html/calendrier.js", "text/javascript");});
+        // request->send(SDFS,"/calendrier.js", "text/javascript");});
+        datas = "";
+        datas = lireFichier("calendrier.js");
+        delay(delaySendDatas);
+        request->send(200, "text/javascript", datas);});
 
     server.on("/temperature.js", HTTP_GET, [](AsyncWebServerRequest * request){
         Serial.println("requete /temperature.js");
-        request->send(SDFS,"/chaudiere/html/temperature.js", "text/javascript");});
+        // request->send(SDFS,"/temperature.js", "text/javascript");});
+        datas = "";
+        datas = lireFichier("temperature.js");
+        delay(delaySendDatas);
+        request->send(200, "text/javascript", datas);});
 
     server.on("/configuration.js", HTTP_GET, [](AsyncWebServerRequest * request){
         Serial.println("requete /configuration.js");
-        request->send(SDFS,"/chaudiere/html/configuration.js", "text/javascript");});
+        // request->send(SDFS,"/configuration.js", "text/javascript");});
+        datas = "";
+        datas = lireFichier("configuration.js");
+        delay(delaySendDatas);
+        request->send(200, "text/javascript", datas);});
 
     //----------------------
     //
@@ -124,11 +169,19 @@ void initServerWeb(void){
 
     server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){ 
         Serial.println("requete /");
-        request->send(SDFS, "/chaudiere/html/index.html", "text/html"); });
+        // request->send(SDFS, "/index.html", "text/html"); });
+        datas = "";
+        datas = lireFichier("index.html");
+        delay(50);
+        request->send(200, "text/html", datas);});
 
     server.on("/index.html", HTTP_GET, [](AsyncWebServerRequest *request){ 
         Serial.println("requete /index.html");
-        request->send(SDFS, "/chaudiere/html/index.html", "text/html"); });
+        //request->send(SDFS, "/index.html", "text/html"); });
+        datas = "";
+        datas = lireFichier("index.html");
+        delay(50);
+        request->send(200, "text/html", datas);});
 
     //----------------------
     //
@@ -185,7 +238,7 @@ void initServerWeb(void){
         Serial.println("requete /calendrier.json");
         //String calendrier = getCalendrierJson();
         //Serial.printf("taille du calendrier : %d\n", calendrier.length());
-        request->send(SDFS, "/chaudiere/html/calendrier.json", "text/json"); });
+        request->send(SDFS, "/calendrier.json", "text/json"); });
         //request->send(200, "text/json", calendrier); });
 
     server.on("/getConsigne", HTTP_GET, [](AsyncWebServerRequest * request){
@@ -205,7 +258,7 @@ void initServerWeb(void){
         String reponse = "{";
         reponse += "\"consigne\": \"" + String(getConsigne()) + "\",\n";
         reponse += "\"envSelectionne\": \"" + String(environnementReference) + "\",\n";
-        reponse += "\"pinRelai\": \"" + String(pinoutRelai) + "\",\n";
+        reponse += "\"pinRelai\": \"" + String(getPinRelai()) + "\",\n";
         reponse += "\"heureEteHivers\": \"a completer\",\n";
         reponse += "\"chauffageOnOff\": \"a completer\",\n";
         reponse += "\"adresseIpTempInt\": \"a completer\",\n";

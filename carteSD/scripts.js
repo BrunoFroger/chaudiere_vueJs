@@ -1,5 +1,3 @@
-
-
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 };
@@ -17,10 +15,11 @@ function appelServer(url, cFuntion) {
 };
 
 function updateData(url, id) {
-    console.log("execution appelServer");
+    console.log("execution updateData");
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200){
+            document.getElementById(id).innerHTML = xhttp.responseText;
             document.getElementById(id).innerHTML = xhttp.responseText;
         }
     };
@@ -30,11 +29,21 @@ function updateData(url, id) {
 
 function getData(url) {
     console.log("execution getData");
-    fetch(url).then((response) => {
-        sleep(10).then(() =>{
-            var data = response.text();
-            console.log("get data => " + data);
+    let data = fetch(url).then((data) => {
+        return data;
+    });
+};
+
+function getJson(url) {
+    console.log("execution getJson");
+    fetch(url)
+        .then((response) => {
+            if(!response.ok) {
+                throw new Error ('HTTP error; status = $(response.status}');
+            }
+            return data;
+        })
+        .then ((data) => {
             return data;
         });
-    });
 };

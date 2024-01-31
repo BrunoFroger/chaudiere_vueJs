@@ -131,8 +131,8 @@ void refreshTemperatures(){
             } else {
                 Serial.println("Impossible recuperer temperature interieure : wifi non connecte");
             }
-        } else {
-            Serial.println("Impossible recuperer temperature interieure : IP vide");
+        //} else {
+            //Serial.println("Impossible recuperer temperature interieure : IP vide");
         }
         if (strcmp(getIPCapteurTemperatureExterieure(), "") != 0){
             if (isWifiConnected()){
@@ -164,8 +164,8 @@ void refreshTemperatures(){
             } else {
                 Serial.println("Impossible recuperer temperature exterieure : wifi non connecte");
             }
-        } else {
-            Serial.println("Impossible recuperer temperature exterieure : IP vide");
+        //} else {
+            //Serial.println("Impossible recuperer temperature exterieure : IP vide");
         }
     }
 }

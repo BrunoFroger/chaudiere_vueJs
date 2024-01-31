@@ -1,7 +1,8 @@
 const { createApp } = Vue;
+
 import Home from './home.js';
 import Commande from './commande.js';
-//import Calendrier from './calendrier.js';
+import Calendrier from './calendrier.js';
 import Temperature from './temperature.js';
 import Configuration from './configuration.js';
 
@@ -52,7 +53,7 @@ const app = createApp({
 
 app.component('home', Home);
 app.component('commande', Commande);
-//app.component('calendrier', Calendrier);
+app.component('calendrier', Calendrier);
 app.component('temperature', Temperature);
 app.component('configuration', Configuration);
 app.mount('#app');

@@ -17,8 +17,8 @@
 structCalendrier calendrier;
 bool chauffageCalendrier = false;
 int jourEnEdition, plageEnEdition;
-char filenameCalendrier[100] = "/chaudiere/calendrier.txt";
-char filenameConfig[100] = "/chaudiere/config.txt";
+char filenameCalendrier[100] = "/calendrier.txt";
+//char filenameConfig[100] = "/config.txt";
 String calendrierJson;
 
 //----------------------------------------------
@@ -107,7 +107,9 @@ void setPlageAbsent(plageHoraire *ptrPlage){
 //----------------------------------------------
 void chargeCalendrier(){
     String datas;
-    Serial.print("recuperation du calendrier sauvegarde sur carte SD\n");
+    Serial.println("---------------------------------------");
+    Serial.print("recuperation du calendrier sauvegarde sur carte SD : \n");
+    Serial.println(filenameCalendrier);
     datas = lireFichier(filenameCalendrier);
     //Serial.println(datas);
     //Serial.print("datas.length() = "); Serial.println(datas.length());
@@ -208,9 +210,10 @@ void chargeCalendrier(){
         ligne = "";
         numLigne++;
     }
-    listeDonneesCalendrier();
-    sauvegardeFichier("/chaudiere/calendrier.init.json", getCalendrierJson());
+    //listeDonneesCalendrier();
+    sauvegardeFichier("/calendrier.init.json", getCalendrierJson());
     Serial.print("fin de la recuperation du calendrier sauvegarde sur carte SD\n");
+    Serial.println("---------------------------------------");
 }
 
 //----------------------------------------------
@@ -237,6 +240,7 @@ structCalendrier *getCalendrier(void){
 //
 //----------------------------------------------
 String getCalendrierJson(void){
+    Serial.println("---------------------------------------");
     Serial.println("getCalendrierJson => debut");
     calendrierJson="";
     calendrierJson += "{";
@@ -261,8 +265,9 @@ String getCalendrierJson(void){
         calendrierJson += "\n\t}";
     }
     calendrierJson += "\n}\n";
-    Serial.print(calendrierJson);
+    //Serial.print(calendrierJson);
     Serial.println("getCalendrierJson => fin");
+    Serial.println("---------------------------------------");
     return calendrierJson;
 }
 
@@ -937,4 +942,6 @@ void initCalendrier(void){
             calendrier.plagesHoraires[j][NB_PLAGES_PAR_JOUR - 1].plageActive = true;
         }
     }
+    Serial.println("Fin int calendrier");
+    Serial.println("---------------------------------------");
 }

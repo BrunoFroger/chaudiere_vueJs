@@ -42,10 +42,13 @@ void setRelai(bool etat){
 //
 //----------------------------------------------
 void setPinRelai(int pin){
-    //Serial.print("nouvelle valeur de pin relai : "); Serial.println(pin);
+    // TODO supprimer return => voir pourquoi bug si on utilise cette fonction
+    return;
+    Serial.print("nouvelle valeur de pin relai : "); Serial.println(pin);
     pinRelai = pin;
     pinMode(pinRelai, OUTPUT);
     setRelai(false);
+    Serial.println("fin setPinRelai");
 }
 
 //----------------------------------------------

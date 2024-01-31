@@ -142,7 +142,7 @@ bool connectWifi(void){
         sprintf(ipGateway,"gateway = %d.%d.%d.%d",apGateway[0],apGateway[1],apGateway[2],apGateway[3]); Serial.println(ipGateway);
         sprintf(ipLocale,"LocalIp = %d.%d.%d.%d",apLocalIp[0],apLocalIp[1],apLocalIp[2],apLocalIp[3]); Serial.println(ipLocale);
         sprintf(netMask,"netmask = %d.%d.%d.%d",apSubnetMask[0],apSubnetMask[1],apSubnetMask[2],apSubnetMask[3]); Serial.println(netMask);
-    } else {
+    } else { // mode STATION
         WiFi.disconnect();
         delay(100);
         //Serial.println("initWifi => check wifi status");
@@ -228,7 +228,7 @@ bool initWifi(void){
         strcpy(wifiPwd, localWifiPwd);
         strcpy(wifiMode, "STATION");
     }
-    return connectWifi();
+    //return connectWifi();
     while (connectWifi() == false){
         if (!getNewSsid()){
             return false;
