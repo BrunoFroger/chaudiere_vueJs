@@ -1,0 +1,366 @@
+[
+  [
+    {
+      "modele": null,
+      "heureDebut": null,
+      "minuteDebut": null,
+      "heureFin": null,
+      "minuteFin": null,
+      "chauffageOnOff": false,
+      "consigne": null,
+      "plageActive": false
+    },
+    {
+      "modele": null,
+      "heureDebut": null,
+      "minuteDebut": null,
+      "heureFin": null,
+      "minuteFin": null,
+      "chauffageOnOff": false,
+      "consigne": null,
+      "plageActive": false
+    },
+    {
+      "modele": null,
+      "heureDebut": null,
+      "minuteDebut": null,
+      "heureFin": null,
+      "minuteFin": null,
+      "chauffageOnOff": false,
+      "consigne": null,
+      "plageActive": false
+    },
+    {
+      "modele": null,
+      "heureDebut": null,
+      "minuteDebut": null,
+      "heureFin": null,
+      "minuteFin": null,
+      "chauffageOnOff": false,
+      "consigne": null,
+      "plageActive": false
+    },
+    {
+      "modele": 0,
+      "heureDebut": 0,
+      "minuteDebut": 0,
+      "heureFin": 23,
+      "minuteFin": 59,
+      "chauffageOnOff": false,
+      "consigne": 200,
+      "plageActive": true
+    }
+  ],
+  [
+    {
+      "modele": null,
+      "heureDebut": null,
+      "minuteDebut": null,
+      "heureFin": null,
+      "minuteFin": null,
+      "chauffageOnOff": false,
+      "consigne": null,
+      "plageActive": false
+    },
+    {
+      "modele": null,
+      "heureDebut": null,
+      "minuteDebut": null,
+      "heureFin": null,
+      "minuteFin": null,
+      "chauffageOnOff": false,
+      "consigne": null,
+      "plageActive": false
+    },
+    {
+      "modele": null,
+      "heureDebut": null,
+      "minuteDebut": null,
+      "heureFin": null,
+      "minuteFin": null,
+      "chauffageOnOff": false,
+      "consigne": null,
+      "plageActive": false
+    },
+    {
+      "modele": null,
+      "heureDebut": null,
+      "minuteDebut": null,
+      "heureFin": null,
+      "minuteFin": null,
+      "chauffageOnOff": false,
+      "consigne": null,
+      "plageActive": false
+    },
+    {
+      "modele": 0,
+      "heureDebut": 0,
+      "minuteDebut": 0,
+      "heureFin": 23,
+      "minuteFin": 59,
+      "chauffageOnOff": false,
+      "consigne": 200,
+      "plageActive": true
+    }
+  ],
+  [
+    {
+      "modele": null,
+      "heureDebut": null,
+      "minuteDebut": null,
+      "heureFin": null,
+      "minuteFin": null,
+      "chauffageOnOff": false,
+      "consigne": null,
+      "plageActive": false
+    },
+    {
+      "modele": null,
+      "heureDebut": null,
+      "minuteDebut": null,
+      "heureFin": null,
+      "minuteFin": null,
+      "chauffageOnOff": false,
+      "consigne": null,
+      "plageActive": false
+    },
+    {
+      "modele": null,
+      "heureDebut": null,
+      "minuteDebut": null,
+      "heureFin": null,
+      "minuteFin": null,
+      "chauffageOnOff": false,
+      "consigne": null,
+      "plageActive": false
+    },
+    {
+      "modele": null,
+      "heureDebut": null,
+      "minuteDebut": null,
+      "heureFin": null,
+      "minuteFin": null,
+      "chauffageOnOff": false,
+      "consigne": null,
+      "plageActive": false
+    },
+    {
+      "modele": 0,
+      "heureDebut": 0,
+      "minuteDebut": 0,
+      "heureFin": 23,
+      "minuteFin": 59,
+      "chauffageOnOff": false,
+      "consigne": 200,
+      "plageActive": true
+    }
+  ],
+  [
+    {
+      "modele": null,
+      "heureDebut": null,
+      "minuteDebut": null,
+      "heureFin": null,
+      "minuteFin": null,
+      "chauffageOnOff": false,
+      "consigne": null,
+      "plageActive": false
+    },
+    {
+      "modele": null,
+      "heureDebut": null,
+      "minuteDebut": null,
+      "heureFin": null,
+      "minuteFin": null,
+      "chauffageOnOff": false,
+      "consigne": null,
+      "plageActive": false
+    },
+    {
+      "modele": null,
+      "heureDebut": null,
+      "minuteDebut": null,
+      "heureFin": null,
+      "minuteFin": null,
+      "chauffageOnOff": false,
+      "consigne": null,
+      "plageActive": false
+    },
+    {
+      "modele": null,
+      "heureDebut": null,
+      "minuteDebut": null,
+      "heureFin": null,
+      "minuteFin": null,
+      "chauffageOnOff": false,
+      "consigne": null,
+      "plageActive": false
+    },
+    {
+      "modele": 0,
+      "heureDebut": 0,
+      "minuteDebut": 0,
+      "heureFin": 23,
+      "minuteFin": 59,
+      "chauffageOnOff": false,
+      "consigne": 200,
+      "plageActive": true
+    }
+  ],
+  [
+    {
+      "modele": null,
+      "heureDebut": null,
+      "minuteDebut": null,
+      "heureFin": null,
+      "minuteFin": null,
+      "chauffageOnOff": false,
+      "consigne": null,
+      "plageActive": false
+    },
+    {
+      "modele": null,
+      "heureDebut": null,
+      "minuteDebut": null,
+      "heureFin": null,
+      "minuteFin": null,
+      "chauffageOnOff": false,
+      "consigne": null,
+      "plageActive": false
+    },
+    {
+      "modele": null,
+      "heureDebut": null,
+      "minuteDebut": null,
+      "heureFin": null,
+      "minuteFin": null,
+      "chauffageOnOff": false,
+      "consigne": null,
+      "plageActive": false
+    },
+    {
+      "modele": null,
+      "heureDebut": null,
+      "minuteDebut": null,
+      "heureFin": null,
+      "minuteFin": null,
+      "chauffageOnOff": false,
+      "consigne": null,
+      "plageActive": false
+    },
+    {
+      "modele": 0,
+      "heureDebut": 0,
+      "minuteDebut": 0,
+      "heureFin": 23,
+      "minuteFin": 59,
+      "chauffageOnOff": false,
+      "consigne": 200,
+      "plageActive": true
+    }
+  ],
+  [
+    {
+      "modele": null,
+      "heureDebut": null,
+      "minuteDebut": null,
+      "heureFin": null,
+      "minuteFin": null,
+      "chauffageOnOff": false,
+      "consigne": null,
+      "plageActive": false
+    },
+    {
+      "modele": null,
+      "heureDebut": null,
+      "minuteDebut": null,
+      "heureFin": null,
+      "minuteFin": null,
+      "chauffageOnOff": false,
+      "consigne": null,
+      "plageActive": false
+    },
+    {
+      "modele": null,
+      "heureDebut": null,
+      "minuteDebut": null,
+      "heureFin": null,
+      "minuteFin": null,
+      "chauffageOnOff": false,
+      "consigne": null,
+      "plageActive": false
+    },
+    {
+      "modele": null,
+      "heureDebut": null,
+      "minuteDebut": null,
+      "heureFin": null,
+      "minuteFin": null,
+      "chauffageOnOff": false,
+      "consigne": null,
+      "plageActive": false
+    },
+    {
+      "modele": 0,
+      "heureDebut": 0,
+      "minuteDebut": 0,
+      "heureFin": 23,
+      "minuteFin": 59,
+      "chauffageOnOff": false,
+      "consigne": 200,
+      "plageActive": true
+    }
+  ],
+  [
+    {
+      "modele": null,
+      "heureDebut": null,
+      "minuteDebut": null,
+      "heureFin": null,
+      "minuteFin": null,
+      "chauffageOnOff": false,
+      "consigne": null,
+      "plageActive": false
+    },
+    {
+      "modele": null,
+      "heureDebut": null,
+      "minuteDebut": null,
+      "heureFin": null,
+      "minuteFin": null,
+      "chauffageOnOff": false,
+      "consigne": null,
+      "plageActive": false
+    },
+    {
+      "modele": null,
+      "heureDebut": null,
+      "minuteDebut": null,
+      "heureFin": null,
+      "minuteFin": null,
+      "chauffageOnOff": false,
+      "consigne": null,
+      "plageActive": false
+    },
+    {
+      "modele": null,
+      "heureDebut": null,
+      "minuteDebut": null,
+      "heureFin": null,
+      "minuteFin": null,
+      "chauffageOnOff": false,
+      "consigne": null,
+      "plageActive": false
+    },
+    {
+      "modele": 0,
+      "heureDebut": 0,
+      "minuteDebut": 0,
+      "heureFin": 23,
+      "minuteFin": 59,
+      "chauffageOnOff": false,
+      "consigne": 200,
+      "plageActive": true
+    }
+  ]
+]

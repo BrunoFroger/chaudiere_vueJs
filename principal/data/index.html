@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang='fr'>
+    <head>
+        <title> Gestion chauffage </title>
+        <meta charset='UTF-8'/>
+        <link rel="stylesheet" href="/style.css">
+        <script src="/w3data.js"></script>
+        <script src="/scripts.js"></script>
+    </head>
+
+    <body>
+        <div w3-include-html="/entete.html"></div>
+        <h1> Gestion chauffage </h1>
+        
+        <p> Nous sommes le : <span id=formatedDate></span>, il est : <span id=formatedTime></span></p>
+
+        <div class='w3-center w3-padding-16'>
+            <p>Ce site permet de gerer l'installation de chauffage </p>
+            <p marginleft=10px >Vous avez acces aux informations suivantes :
+                <li> <a href='/commande'>commandes</a> de chauffage,<br>
+                <li> gestion des periodes de chauffage dans le <a href='/calendrier'>calendrier</a>
+                <li> definition des <a href='/plagesModeles'>modeles</a> de plages de chauffage 
+                <li> <a href='/temperatures'>temperatures</a>
+                <li> gestion des donnees de <a href='/config'>configuration</a> de la carte SD
+            </p>
+            <p>Qualité du signal Wifi (RSSI) : <span id=valeurRSSI></span> dB</p>
+        </div>
+
+
+        <div w3-include-html="/piedPage.html"></div>
+
+        <script>w3IncludeHTML();</script>
+    </body>
+
+    <script>
+        sleep(100).then(() => {
+            updateData("/getFormatedDate", "formatedDate");
+            updateData("/getFormatedTime", "formatedTime");
+            updateData("/getRSSI", "valeurRSSI");
+            updateData("/getBoard", "valeurBoard");
+            updateData("/getCopyright", "valeurCopyright");
+        });
+    </script>
+</html>

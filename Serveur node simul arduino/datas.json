@@ -1,0 +1,22 @@
+{
+    "consigne": 200,
+    "tempInt": 180,
+    "tempExt": 120,
+    "chauffageMode": "OFF",
+    "chauffageStatus": "OFF",
+    "circulateurOnOff": "OFF",
+    "commandeVanneChauffage":0,
+    "afficheurOnOff": "OFF",
+    "envSelectionne": "maison",
+    "pinRelai": 8,
+    "regulation": null,
+    "heureEteHivers": null,
+    "chauffageOnOff": null,
+    "adresseIpTempInt": null,
+    "adresseIpTempExt": null,
+    "consigneJour": 195,
+    "consigneNuit": 170,
+    "consigneAbsent": 135,
+    "board":"simulateur Node",
+    "copyright":"B. Froger (c) depuis 2024"
+}
