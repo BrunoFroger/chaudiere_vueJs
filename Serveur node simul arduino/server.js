@@ -383,7 +383,6 @@ var calendar = JSON.parse('{ \
 
 // var donnees
 var donnees = JSON.parse('{\
-    "consigne": 200,\
     "tempInt": 180,\
     "tempExt": 120,\
     "chauffageMode": "OFF",\
@@ -391,20 +390,26 @@ var donnees = JSON.parse('{\
     "circulateurOnOff": "OFF",\
     "commandeVanneChauffage":0,\
     "afficheurOnOff": "OFF",\
+    "board": "simulateur Node",\
+    "copyright": "B. Froger (c) depuis 2024"\
+}')
+
+// configuration
+var configuration = JSON.parse('{\
+    "consigne": 200,\
     "envSelectionne": "maison",\
     "pinRelai": 8,\
     "regulation": null,\
     "heureEteHivers": null,\
     "chauffageOnOff": null,\
-    "adresseIpTempInt": null,\
-    "adresseIpTempExt": null,\
+    "adresseIpTempInt": "",\
+    "adresseIpTempExt": "",\
     "consigneJour": 195,\
     "consigneNuit": 170,\
-    "consigneAbsent": 135,\
-    "board": "simulateur Node",\
-    "copyright": "B. Froger (c) depuis 2024"\
+    "consigneAbsent": 135\
 }')
 
+// environnements
 var environnements = JSON.parse('[\
     {\
         "nom": "maison",\
@@ -479,9 +484,19 @@ const server = http.createServer(async(req, res) => {
     } else if (req.url.startsWith('/getDatasConfig')){
         let jsonData = requete_getDatasConfig()
         res.setHeader('Content-Type', 'text/json');
-        res.end(JSON.stringify(jsonData));
+        res.end(jsonData);
     } else if (req.url.startsWith('/updateConsigne')){
         donnees.consigne = url.parse(req.url,true).query.consigne 
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+        res.end('OK\n');
+    } else if (req.url.startsWith('/updateIpTempInt')){
+        configuration.adresseIpTempInt = url.parse(req.url,true).query.ip 
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+        res.end('OK\n');
+    } else if (req.url.startsWith('/updateIpTempExt')){
+        configuration.adresseIpTempExt = url.parse(req.url,true).query.ip 
         res.statusCode = 200;
         res.setHeader('Content-Type', 'text/plain; charset=utf-8');
         res.end('OK\n');
@@ -509,8 +524,15 @@ const server = http.createServer(async(req, res) => {
         const object = JSON.parse(await rawReqToString(req));
         saveCalendrier(object)
         res.end(JSON.stringify(calendar));
+    } else if (req.url.startsWith('/saveConfiguration')){
+        console.log('server.js => saveConfiguration')
+        const object = JSON.parse(await rawReqToString(req));
+        saveConfiguration(object)
+        res.end(JSON.stringify(configuration));
     } else {
+        console.log("ERREUR => " + req.url + " ")
         res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+        res.statusCode=404
         res.end('page not found')
     }   
 });
@@ -529,7 +551,7 @@ server.listen(port, hostname, () => {
     // var waitTill = new Date(new Date().getTime() + 5000);
     // while(waitTill > new Date()){}
     //const donneeJson = JSON.parse(donnees)
-    console.log("donnees = " + donnees)
+    //console.log("donnees = " + donnees)
     console.log("consigne = " + donnees["consigne"])
     //const environnementsJson = JSON.parse(environnements)
     // console.log("environnements = " + environnements)
@@ -543,7 +565,7 @@ server.listen(port, hostname, () => {
 //=====================================================
 function requete_getDatasCommande(){
     return {
-        "consigne":donnees["consigne"],
+        "consigne":configuration["consigne"],
         "chauffageMode":donnees["chauffageMode"],
         "chauffageStatus":donnees["chauffageStatus"],
         "circulateurOnOff":donnees["circulateurOnOff"],
@@ -561,11 +583,11 @@ function requete_getDatasCommande(){
 //=====================================================
 function requete_getDatasTemperatures(){
     return {
-        "consigne":donnees["consigne"],
+        "consigne":configuration["consigne"],
         "temperatureInterieure":donnees["tempInt"],
         "temperatureExterieure":donnees["tempExt"],
-        "ipTempInt":donnees["adresseIpTempInt"],
-        "ipTempExt":donnees["adresseIpTempExt"],
+        "ipTempInt":configuration["adresseIpTempInt"],
+        "ipTempExt":configuration["adresseIpTempExt"],
     }
 }
 
@@ -575,19 +597,21 @@ function requete_getDatasTemperatures(){
 //
 //=====================================================
 function requete_getDatasConfig(){
-    return {
-        "consigne":donnees["consigne"],
-        "envSelectionne":donnees["envSelectionne"],
-        "pinRelai":donnees["pinRelai"],
-        "regulation":donnees["regulation"],
-        "heureEteHivers":donnees["heureEteHivers"],
-        "chauffageOnOff":donnees["chauffageOnOff"],
-        "adresseIpTempInt":donnees["adresseIpTempInt"],
-        "adresseIpTempExt":donnees["adresseIpTempExt"],
-        "consigneJour":donnees["consigneJour"],
-        "consigneNuit":donnees["consigneNuit"],
-        "consigneAbsent":donnees["consigneAbsent"],
-    }
+    // return {
+        // "consigne":donnees["consigne"],
+        // "envSelectionne":donnees["envSelectionne"],
+        // "pinRelai":donnees["pinRelai"],
+        // "regulation":donnees["regulation"],
+        // "heureEteHivers":donnees["heureEteHivers"],
+        // "chauffageOnOff":donnees["chauffageOnOff"],
+        // "adresseIpTempInt":donnees["adresseIpTempInt"],
+        // "adresseIpTempExt":donnees["adresseIpTempExt"],
+        // "consigneJour":donnees["consigneJour"],
+        // "consigneNuit":donnees["consigneNuit"],
+        // "consigneAbsent":donnees["consigneAbsent"],
+    // }
+    console.log(JSON.stringify(configuration))
+    return JSON.stringify(configuration)
 }
 
 //=====================================================
@@ -604,10 +628,20 @@ function requete_getDatasPiedPage(){
 
 //=====================================================
 //
-//      function savaCalendrier
+//      function saveCalendrier
 //
 //=====================================================
 function saveCalendrier(valeur){
     console.log('saveCalendrier => ' + JSON.stringify(valeur))
     calendar = valeur
+}
+
+//=====================================================
+//
+//      function saveConfiguration
+//
+//=====================================================
+function saveConfiguration(valeur){
+    console.log('saveConfiguration => ' + JSON.stringify(valeur))
+    configuration = valeur
 }

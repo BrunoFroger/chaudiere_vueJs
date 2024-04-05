@@ -35,7 +35,7 @@ export default {
                 <td>{{this.$parent.formatTemperature(temperatureExterieure)}}</td>\
               </tr>\
               <tr>\
-                <td>Consigne de chauffage</td>\
+                <td>Consigne de chauffage (en 1/10° de degré : 200=20.0°C)</td>\
                 <td>\
                   <input id='consigne' name='consigne' v-model='consigne' @keyup.enter='updateConsigne()'/>\
                 </td>\
@@ -43,13 +43,13 @@ export default {
               <tr>\
                 <td>Adresse IP capteur temp int</td>\
                 <td>\
-                  <input id='ipTempInt' name='ipTempInt' v-model='ipTempInt' @keyup.enter='updateIpTempInt()'/>\
+                  <input id='ipTempInt' name='ipTempInt' v-model='ipTempInt' @keyup.enter='this.updateIpTempInt()'/>\
                 </td>\
               </tr>\
               <tr>\
                 <td>Adresse IP capteur temp ext</td>\
                 <td>\
-                  <input id='ipTempExt' name='ipTempExt' v-model='ipTempExt' @keyup.enter='updateIpTempExt()'/>\
+                  <input id='ipTempExt' name='ipTempExt' v-model='ipTempExt' @keyup.enter='this.updateIpTempExt()'/>\
                 </td>\
               </tr>\
             </tbody>\
@@ -62,17 +62,18 @@ export default {
       updateConsigne() {
         let requete = this.$parent.httpServer + "/updateConsigne?consigne=" + this.consigne
         fetch(requete).then(r => r.json()).then(response => {
-        //fetch('/updateConsigne?consigne='+this.consigne).then(r => {
           this.loadDatasTemperatures();
         })
       },
       updateIpTempInt() {
-        fetch('/updateIpTempInt?ip='+this.ipTempInt).then(r => {
+        let requete = this.$parent.httpServer + "/updateIpTempInt?ip=" + this.ipTempInt
+        fetch(requete).then(r => {
           this.loadDatasTemperatures();
         })
       },
       updateIpTempExt() {
-        fetch('/updateIpTempExt?ip='+this.ipTempExt).then(r => {
+        let requete = this.$parent.httpServer + "/updateIpTempExt?ip=" + this.ipTempExt
+        fetch(requete).then(r => {
           this.loadDatasTemperatures();
         })
       },

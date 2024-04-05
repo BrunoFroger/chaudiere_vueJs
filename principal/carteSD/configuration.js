@@ -1,17 +1,22 @@
+
 export default {
     props: [],
     data: function () {
       return {
         environnements: {},
-        consigne: "NC",
-        envSelectionne: "NC",
-        pinRelai: "NC",
-        heureEteHivers: "NC",
-        chauffageOnOff: "NC",
-        adresseIpTempInt: "NC",
-        consigneJour: "NC",
-        consigneNuit: "NC",
-        consigneAbsent: "NC",
+        configuration: {},
+        ipTempInt: null,
+        ipTempExt: null
+      //   consigne: "NC",
+      //   envSelectionne: "NC",
+      //   pinRelai: "NC",
+      //   heureEteHivers: "NC",
+      //   chauffageOnOff: "NC",
+        // adresseIpTempInt: ,
+        // adresseIpTempExt: 
+      //   consigneJour: "NC",
+      //   consigneNuit: "NC",
+      //   consigneAbsent: "NC",
       };
     },
     mounted() {
@@ -35,43 +40,51 @@ export default {
           <tbody>\
               <tr>\
                   <td>Consigne</td>\
-                  <td>{{this.$parent.formatTemperature(consigne)}}</td>\
+                  <td>{{this.$parent.formatTemperature(configuration.consigne)}}</td>\
               </tr>\
               <tr>\
                   <td>Environnement utilise</td>\
-                  <td>{{envSelectionne}}</td>\
+                  <td>{{configuration.envSelectionne}}</td>\
               </tr>\
               <tr>\
                   <td>Pin relai</td>\
-                  <td>{{pinRelai}}</td>\
+                  <td>{{configuration.pinRelai}}</td>\
+              </tr>\
+              <tr>\
+                  <td>Regulation</td>\
+                  <td>{{configuration.regulation}}</td>\
               </tr>\
               <tr>\
                   <td>Heure été/hiver</td>\
-                  <td>{{heureEteHivers ? "été" : "hivers"}}</td>\
+                  <td>{{configuration.heureEteHivers ? "été" : "hiver"}}</td>\
               </tr>\
               <tr>\
                   <td>chauffage</td>\
-                  <td>{{chauffageOnOff ? "ON" : "OFF"}}</td>\
+                  <td>{{configuration.chauffageOnOff ? "ON" : "OFF"}}</td>\
               </tr>\
               <tr>\
-                  <td>Adresse capteur temp interieure</td>\
+                  <td>Adresse IP du capteur de température intérieure</td>\
                   <td>\
-                    <form >\
-                      <input id="ipTempInt" name="ipTempInt" valeur="{{adresseIpTempInt}}">\
-                    </form>\
+                    <input id="ipTempInt" name="ipTempInt" v-model="ipTempInt" @keyup.enter="this.configurationUpdateIpTempInt()"/>\
+                  </td>\
+              </tr>\
+              <tr>\
+                  <td>Adresse IP du capteur de température extérieure</td>\
+                  <td>\
+                    <input id="ipTempExt" name="ipTempExt" v-model="ipTempExt" @keyup.enter="this.configurationUpdateIpTempExt()"/>\
                   </td>\
               </tr>\
               <tr>\
                   <td>Référence consigne jour</td>\
-                  <td>{{this.$parent.formatTemperature(consigneJour)}}</td>\
+                  <td>{{this.$parent.formatTemperature(configuration.consigneJour)}}</td>\
               </tr>\
               <tr>\
                   <td>Référence consigne nuit</td>\
-                  <td>{{this.$parent.formatTemperature(consigneNuit)}}</td>\
+                  <td>{{this.$parent.formatTemperature(configuration.consigneNuit)}}</td>\
               </tr>\
               <tr>\
                   <td>Référence consigne absent</td>\
-                  <td>{{this.$parent.formatTemperature(consigneAbsent)}}</td>\
+                  <td>{{this.$parent.formatTemperature(configuration.consigneAbsent)}}</td>\
               </tr>\
           </tbody>\
         </table>\
@@ -98,42 +111,56 @@ export default {
         </table>\
       </div>\
       <div>\
-        <p><a href="/sauveConfig">  sauver la configuration </a></p>\
-      </div>\
-      <div>\
         <p><a href="/listFichierConfig">  afficher fichier de configuration </a></p>\
       </div>\
     ',
     methods: {
       loadEnvironnements() {
-      let requete = this.$parent.httpServer + "/environnements.json"
-      fetch(requete).then(r => r.json()).then(response => {
-      //fetch('environnements.json').then(r => r.json()).then(environnements => {
-        this.environnements=response;
-        console.log("environnelents : " + this.updateDateTimeenvironnements);
+        let requete = this.$parent.httpServer + "/environnements.json"
+        fetch(requete).then(r => r.json()).then(response => {
+          this.environnements=response;
+          console.log("environnelents : " + this.updateDateTimeenvironnements);
         });
+      },
+      configurationUpdateIpTempInt() {
+        console.log("updateIpTempInt => " + this.ipTempInt)
+        let requete = this.$parent.httpServer + "/updateIpTempInt?ip=" + this.ipTempInt
+        fetch(requete).then(r => {
+          this.loadDatasConfig();
+        })
+      },
+      configurationUpdateIpTempExt() {
+        console.log("updateIpTempExt => " + this.ipTempExt)
+        let requete = this.$parent.httpServer + "/updateIpTempExt?ip=" + this.ipTempExt
+        fetch(requete).then(r => {
+          this.loadDatasConfig();
+        })
       },
       loadDatasConfig() {
         let requete = this.$parent.httpServer + "/getDatasConfig"
         fetch(requete).then(r => r.json()).then(response => {
         //fetch('/getDatasConfig').then(r => r.json()).then(response => {
-          console.log(response)
-          this.consigne = response.consigne;
-          this.envSelectionne = response.envSelectionne;
-          this.pinRelai = response.pinRelai;
-          this.regulation = response.regulation;
-          this.heureEteHivers = response.heureEteHivers;
-          this.chauffageOnOff = response.chauffageOnOff;
-          this.adresseIpTempInt = response.adresseIpTempInt;
-          this.consigneJour = response.consigneJour;
-          this.consigneNuit = response.consigneNuit;
-          this.consigneAbsent = response.consigneAbsent;
+          this.configuration = response
+          console.log("loadDatasConfig : " + this.configuration)
+          this.ipTempInt = response.adresseIpTempInt;
+          this.ipTempExt = response.adresseIpTempExt;
+          // this.consigne = response.consigne;
+          // this.envSelectionne = response.envSelectionne;
+          // this.pinRelai = response.pinRelai;
+          // this.regulation = response.regulation;
+          // this.heureEteHivers = response.heureEteHivers;
+          // this.chauffageOnOff = response.chauffageOnOff;
+          // this.adresseIpTempInt = response.adresseIpTempInt;
+          // this.adresseIpTempExt = response.adresseIpTempExt;
+          // this.consigneJour = response.consigneJour;
+          // this.consigneNuit = response.consigneNuit;
+          // this.consigneAbsent = response.consigneAbsent;
         })
         .catch(error => {
           console.error(error);
-          this.consigne = null;
+          this.configuration.consigne = null;
         });
-        console.log("consigne = " + this.consigne);
+        console.log("consigne = " + this.configuration.consigne);
       },
     }
 }
