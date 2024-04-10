@@ -1,10 +1,10 @@
 const http = require('node:http')
 const url=require("url")
 const fs=require("fs")
-//const bodyParser = require('body-parser')
 
 const hostname = 'localhost';
 const port = 3000;
+
 const rawReqToString = async (req) => {
     const buffers = [];
     for await(const chunk of req){
@@ -433,26 +433,6 @@ var environnements = JSON.parse('[\
     }\
 ]')
 
-// var consigne = 200;
-// var tempInt = 180
-// var tempExt = 120
-// var chauffageMode = "OFF"
-// var chauffageStatus = "OFF"
-// var circulateurOnOff = "OFF"
-// var afficheurOnOff = "OFF"
-// var adresseIpTempInt = "NC"
-// var adresseIpTempExt = "NC"
-// var envSelectionne = null
-// var pinRelai =  8
-// var regulation =  null
-// var heureEteHivers =  null
-// var chauffageOnOff =  null
-// var adresseIpTempInt =  null
-// var adresseIpTempExt =  null
-// var consigneJour =  195
-// var consigneNuit =  170
-// var consigneAbsent =  135
-
 //=====================================================
 //
 //      http.createServer
@@ -597,20 +577,7 @@ function requete_getDatasTemperatures(){
 //
 //=====================================================
 function requete_getDatasConfig(){
-    // return {
-        // "consigne":donnees["consigne"],
-        // "envSelectionne":donnees["envSelectionne"],
-        // "pinRelai":donnees["pinRelai"],
-        // "regulation":donnees["regulation"],
-        // "heureEteHivers":donnees["heureEteHivers"],
-        // "chauffageOnOff":donnees["chauffageOnOff"],
-        // "adresseIpTempInt":donnees["adresseIpTempInt"],
-        // "adresseIpTempExt":donnees["adresseIpTempExt"],
-        // "consigneJour":donnees["consigneJour"],
-        // "consigneNuit":donnees["consigneNuit"],
-        // "consigneAbsent":donnees["consigneAbsent"],
-    // }
-    console.log(JSON.stringify(configuration))
+    //console.log(JSON.stringify(configuration))
     return JSON.stringify(configuration)
 }
 
@@ -632,7 +599,7 @@ function requete_getDatasPiedPage(){
 //
 //=====================================================
 function saveCalendrier(valeur){
-    console.log('saveCalendrier => ' + JSON.stringify(valeur))
+    //console.log('saveCalendrier => ' + JSON.stringify(valeur))
     calendar = valeur
 }
 
@@ -642,6 +609,6 @@ function saveCalendrier(valeur){
 //
 //=====================================================
 function saveConfiguration(valeur){
-    console.log('saveConfiguration => ' + JSON.stringify(valeur))
+    //console.log('saveConfiguration => ' + JSON.stringify(valeur))
     configuration = valeur
 }

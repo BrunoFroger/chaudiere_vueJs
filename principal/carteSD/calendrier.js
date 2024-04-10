@@ -78,7 +78,7 @@ export default {
           });
         },
         save() {
-          console.log("sauvegarde du calendrier : " + JSON.stringify(this.calendar))
+          //console.log("sauvegarde du calendrier : " + JSON.stringify(this.calendar))
           let requete = this.$parent.httpServer + "/saveCalendrier"
           fetch(requete,{
             headers: {
@@ -97,6 +97,7 @@ export default {
           return `${String(heure).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
         },
         editPlage(jour, plage) {
+          console.log("editPlage " + jour + "/" + plage)
             if (this.calendar && this.calendar[`jour${jour}`] && this.calendar[`jour${jour}`][`plage${plage}`] && this.calendar[`jour${jour}`][`plage${plage}`].plageActive) {
           this.edit[`${jour}-${plage}`]=this.calendar[`jour${jour}`][`plage${plage}`];
             } else {
@@ -111,26 +112,33 @@ export default {
                 "plageActive":true
               };
             }
-            console.log("this.edit",this.edit);
+            //console.log("this.edit",this.edit);
         },
         disablePlage(jour, plage) {
+          console.log("disablePlage " + jour + "/" + plage)
           let active=true;
           if (this.calendar && this.calendar[`jour${jour}`] && this.calendar[`jour${jour}`][`plage${plage}`] && this.calendar[`jour${jour}`][`plage${plage}`].plageActive) {
             active=false;
+            delete(this.edit[`${jour}-${plage}`]);
           }
           if (DEBUG) {
             this.calendar[`jour${jour}`][`plage${plage}`].plageActive=active;
           } else {
+            console.log("disablePlage " + jour + "/" + plage)
             //send to backend
+            delete(this.edit[`${jour}-${plage}`]);
             this.save()
             //this.load();
           }
         },
         cancelEdit(jour, plage) {
+          console.log("cancelEdit " + jour + "/" + plage)
           delete(this.edit[`${jour}-${plage}`]);
+          this.save()
         },
         saveEdit(jour, plage) {
-          console.log("save Calendrier", `jour${jour}`, `plage${plage}`, JSON.stringify(this.edit[`${jour}-${plage}`], null, 2));
+          console.log("saveEdit " + jour + "/" + plage)
+          //console.log("save Calendrier", `jour${jour}`, `plage${plage}`, JSON.stringify(this.edit[`${jour}-${plage}`], null, 2));
           if (DEBUG) {
             this.calendar[`jour${jour}`][`plage${plage}`]=this.edit[`${jour}-${plage}`];
             delete(this.edit[`${jour}-${plage}`]);
