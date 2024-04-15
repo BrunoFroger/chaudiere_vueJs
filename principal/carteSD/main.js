@@ -33,7 +33,7 @@ const app = createApp({
               <td><a href="#" @click.prevent="page=\'calendrier\'">calendrier</a></td>\
               <td><a href="#" @click.prevent="page=\'temperature\'">temperature</a></td>\
               <td><a href="#" @click.prevent="page=\'configuration\'">configuration</a></td>\
-              <td><a href="#" @click.prevent="page=\'calendrier2\'">calendrier2</a></td>\
+              <!--td><a href="#" @click.prevent="page=\'calendrier2\'">calendrier2</a></td-->\
               <td>{{currentDateTime}}</td>\
             </tr>\
           </table>\

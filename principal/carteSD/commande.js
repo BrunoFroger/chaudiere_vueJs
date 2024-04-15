@@ -37,7 +37,7 @@ export default {
                     <option value="OFF">OFF</option>\
                     <option value="PROG">PROG</option>\
                     <option value="FORCE">FORCE</option>\
-                    <option value="MANUEL">MANUEL</option>\
+                    <option value="AUTO">AUTO</option>\
                   </select>\
                 </form>\
               </td>\
@@ -45,7 +45,7 @@ export default {
                 <br> OFF : chauffage eteint\
                 <br> PROG : le calendrier (et la temperature) definissent la mise en route du circulateur\
                 <br> FORCE : le chauffage est allumé sans régulation\
-                <br> MANUEL : seule la temperature regule le chauffage\
+                <br> AUTO : la temperature regule le chauffage\
               </td>\
             </tr>\
             <tr>\

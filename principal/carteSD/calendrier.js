@@ -22,7 +22,7 @@ export default {
           <thead>\
             <tr>\
               <th></th>\
-              <th colspan="5" v-for="plage in nbPlage">plage {{plage}}</th>\
+              <th colspan="5" v-for="plage in nbPlage">plage {{plage-1}}</th>\
             </tr>\
             <tr>\
               <th></th>\
@@ -39,29 +39,29 @@ export default {
             <tr v-for="day, idx in days">\
               <td>{{day}}</td>\
               <template v-for="plage in nbPlage">\
-                <template v-if="edit[`${idx}-${plage}`]">\
-                  <td><input type="number" size="4" v-model.number="edit[`${idx}-${plage}`].heureDebut"/>:<input type="number" size="4" v-model.number="edit[`${idx}-${plage}`].minuteDebut"/></td>\
-                  <td><input type="number" size="4" v-model.number="edit[`${idx}-${plage}`].heureFin"/>:<input type="number" size="4" v-model.number="edit[`${idx}-${plage}`].minuteFin"/></td>\
-                  <td><input type="number" size="6" v-model.number="edit[`${idx}-${plage}`].consigne"/></td>\
-                  <td><input type="checkbox" v-model.boolean="edit[`${idx}-${plage}`].chauffageOnOff"/></td>\
+                <template v-if="edit[`${idx}-${plage-1}`]">\
+                  <td><input type="number" size="4" v-model.number="edit[`${idx}-${plage-1}`].heureDebut"/>:<input type="number" size="4" v-model.number="edit[`${idx}-${plage-1}`].minuteDebut"/></td>\
+                  <td><input type="number" size="4" v-model.number="edit[`${idx}-${plage-1}`].heureFin"/>:<input type="number" size="4" v-model.number="edit[`${idx}-${plage-1}`].minuteFin"/></td>\
+                  <td><input type="number" size="6" v-model.number="edit[`${idx}-${plage-1}`].consigne"/></td>\
+                  <td><input type="checkbox" v-model.boolean="edit[`${idx}-${plage-1}`].chauffageOnOff"/></td>\
                   <td>\
-                    <a href="#" @click.prevent="cancelEdit(idx, plage)">cancel</a>\
-                    <a href="#" @click.prevent="saveEdit(idx, plage)">save</a>\
+                    <a href="#" @click.prevent="cancelEdit(idx, plage-1)">cancel</a>\
+                    <a href="#" @click.prevent="saveEdit(idx, plage-1)">save</a>\
                   </td>\
                 </template>\
-                <template v-else-if="calendar && calendar[`jour${idx}`] && calendar[`jour${idx}`][`plage${plage}`] && calendar[`jour${idx}`][`plage${plage}`] && calendar[`jour${idx}`][`plage${plage}`].plageActive">\
-                  <td>{{formatDate(calendar[`jour${idx}`][`plage${plage}`].heureDebut, calendar[`jour${idx}`][`plage${plage}`].minuteDebut)}}</td>\
-                  <td>{{formatDate(calendar[`jour${idx}`][`plage${plage}`].heureFin, calendar[`jour${idx}`][`plage${plage}`].minuteFin)}}</td>\
-                  <td>{{formatConsigne(calendar[`jour${idx}`][`plage${plage}`].consigne)}}</td>\
-                  <td>{{calendar[`jour${idx}`][`plage${plage}`].chauffageOnOff ? "oui" : "non"}}</td>\
+                <template v-else-if="calendar && calendar[`jour${idx}`] && calendar[`jour${idx}`][`plage${plage-1}`] && calendar[`jour${idx}`][`plage${plage-1}`] && calendar[`jour${idx}`][`plage${plage-1}`].plageActive">\
+                  <td>{{formatDate(calendar[`jour${idx}`][`plage${plage-1}`].heureDebut, calendar[`jour${idx}`][`plage${plage-1}`].minuteDebut)}}</td>\
+                  <td>{{formatDate(calendar[`jour${idx}`][`plage${plage-1}`].heureFin, calendar[`jour${idx}`][`plage${plage-1}`].minuteFin)}}</td>\
+                  <td>{{formatConsigne(calendar[`jour${idx}`][`plage${plage-1}`].consigne)}}</td>\
+                  <td>{{calendar[`jour${idx}`][`plage${plage-1}`].chauffageOnOff ? "oui" : "non"}}</td>\
                   <td>\
-                    <a href="#" @click.prevent="disablePlage(idx, plage)">disable</a>\
-                    <a href="#" @click.prevent="editPlage(idx, plage)">edit</a>\
+                    <a href="#" @click.prevent="disablePlage(idx, plage-1)">disable</a>\
+                    <a href="#" @click.prevent="editPlage(idx, plage-1)">edit</a>\
                     </td>\
                 </template>\
                 <template v-else>\
                   <td colspan="4">inactive</td>\
-                  <td><a href="#" @click.prevent="editPlage(idx, plage)">edit</a></td>\
+                  <td><a href="#" @click.prevent="editPlage(idx, plage-1)">edit</a></td>\
                 </template>\
               </template>\
             </tr>\
@@ -126,9 +126,9 @@ export default {
           } else {
             console.log("disablePlage " + jour + "/" + plage)
             //send to backend
-            delete(this.edit[`${jour}-${plage}`]);
+            delete(this.calendar[`jour${jour}`][`plage${plage}`]);
             this.save()
-            //this.load();
+            this.load();
           }
         },
         cancelEdit(jour, plage) {
