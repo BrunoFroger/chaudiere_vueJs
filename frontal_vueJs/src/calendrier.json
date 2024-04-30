@@ -1,0 +1,296 @@
+{ 
+    "jour0": { 
+        "plage0": {
+            "modele":null,
+            "heureDebut":null,
+            "minuteDebut":null,
+            "heureFin":null,
+            "minuteFin":null,
+            "chauffageOnOff":false,
+            "consigne":null,
+            "plageActive":false
+        }, 
+        "plage1": {
+            "modele":null,
+            "heureDebut":12,
+            "minuteDebut":0,
+            "heureFin":13,
+            "minuteFin":0,
+            "chauffageOnOff":true,
+            "consigne":19,
+            "plageActive":true
+        }, 
+        "plage2": {
+            "modele":null,
+            "heureDebut":null,
+            "minuteDebut":null,
+            "heureFin":null,
+            "minuteFin":null,
+            "chauffageOnOff":false,
+            "consigne":null,
+            "plageActive":false
+        }, 
+        "plage3": {
+            "modele":0,
+            "heureDebut":0,
+            "minuteDebut":0,
+            "heureFin":23,
+            "minuteFin":59,
+            "chauffageOnOff":false,
+            "consigne":200,
+            "plageActive":true
+        }
+    }
+    , "jour1": { 
+        "plage0": {
+            "modele":null,
+            "heureDebut":null,
+            "minuteDebut":null,
+            "heureFin":null,
+            "minuteFin":null,
+            "chauffageOnOff":false,
+            "consigne":null,
+            "plageActive":false
+        }, 
+        "plage1": {
+            "modele":null,
+            "heureDebut":null,
+            "minuteDebut":null,
+            "heureFin":null,
+            "minuteFin":null,
+            "chauffageOnOff":false,
+            "consigne":null,
+            "plageActive":false
+        }, 
+        "plage2": {
+            "modele":null,
+            "heureDebut":null,
+            "minuteDebut":null,
+            "heureFin":null,
+            "minuteFin":null,
+            "chauffageOnOff":false,
+            "consigne":null,
+            "plageActive":false
+        }, 
+        "plage3": {
+            "modele":0,
+            "heureDebut":0,
+            "minuteDebut":0,
+            "heureFin":23,
+            "minuteFin":59,
+            "chauffageOnOff":false,
+            "consigne":200,
+            "plageActive":true
+        }
+    }
+    , "jour2": { 
+        "plage0": {
+            "modele":null,
+            "heureDebut":null,
+            "minuteDebut":null,
+            "heureFin":null,
+            "minuteFin":null,
+            "chauffageOnOff":false,
+            "consigne":null,
+            "plageActive":false
+        }, 
+        "plage1": {
+            "modele":null,
+            "heureDebut":null,
+            "minuteDebut":null,
+            "heureFin":null,
+            "minuteFin":null,
+            "chauffageOnOff":false,
+            "consigne":null,
+            "plageActive":false
+        }, 
+        "plage2": {
+            "modele":null,
+            "heureDebut":null,
+            "minuteDebut":null,
+            "heureFin":null,
+            "minuteFin":null,
+            "chauffageOnOff":false,
+            "consigne":null,
+            "plageActive":false
+        }, 
+        "plage3": {
+            "modele":0,
+            "heureDebut":0,
+            "minuteDebut":0,
+            "heureFin":23,
+            "minuteFin":59,
+            "chauffageOnOff":false,
+            "consigne":200,
+            "plageActive":true
+        }
+    }
+    , "jour3": { 
+        "plage0": {
+            "modele":null,
+            "heureDebut":null,
+            "minuteDebut":null,
+            "heureFin":null,
+            "minuteFin":null,
+            "chauffageOnOff":false,
+            "consigne":null,
+            "plageActive":false
+        }, 
+        "plage1": {
+            "modele":null,
+            "heureDebut":null,
+            "minuteDebut":null,
+            "heureFin":null,
+            "minuteFin":null,
+            "chauffageOnOff":false,
+            "consigne":null,
+            "plageActive":false
+        }, 
+        "plage2": {
+            "modele":null,
+            "heureDebut":null,
+            "minuteDebut":null,
+            "heureFin":null,
+            "minuteFin":null,
+            "chauffageOnOff":false,
+            "consigne":null,
+            "plageActive":false
+        }, 
+        "plage3": {
+            "modele":0,
+            "heureDebut":0,
+            "minuteDebut":0,
+            "heureFin":23,
+            "minuteFin":59,
+            "chauffageOnOff":false,
+            "consigne":200,
+            "plageActive":true
+        }
+    }
+    , "jour4": { 
+        "plage0": {
+            "modele":null,
+            "heureDebut":null,
+            "minuteDebut":null,
+            "heureFin":null,
+            "minuteFin":null,
+            "chauffageOnOff":false,
+            "consigne":null,
+            "plageActive":false
+        }, 
+        "plage1": {
+            "modele":null,
+            "heureDebut":null,
+            "minuteDebut":null,
+            "heureFin":null,
+            "minuteFin":null,
+            "chauffageOnOff":false,
+            "consigne":null,
+            "plageActive":false
+        }, 
+        "plage2": {
+            "modele":null,
+            "heureDebut":null,
+            "minuteDebut":null,
+            "heureFin":null,
+            "minuteFin":null,
+            "chauffageOnOff":false,
+            "consigne":null,
+            "plageActive":false
+        }, 
+        "plage3": {
+            "modele":0,
+            "heureDebut":0,
+            "minuteDebut":0,
+            "heureFin":23,
+            "minuteFin":59,
+            "chauffageOnOff":false,
+            "consigne":200,
+            "plageActive":true
+        }
+    }
+    , "jour5": { 
+        "plage0": {
+            "modele":null,
+            "heureDebut":null,
+            "minuteDebut":null,
+            "heureFin":null,
+            "minuteFin":null,
+            "chauffageOnOff":false,
+            "consigne":null,
+            "plageActive":false
+        }, 
+        "plage1": {
+            "modele":null,
+            "heureDebut":null,
+            "minuteDebut":null,
+            "heureFin":null,
+            "minuteFin":null,
+            "chauffageOnOff":false,
+            "consigne":null,
+            "plageActive":false
+        }, 
+        "plage2": {
+            "modele":null,
+            "heureDebut":null,
+            "minuteDebut":null,
+            "heureFin":null,
+            "minuteFin":null,
+            "chauffageOnOff":false,
+            "consigne":null,
+            "plageActive":false
+        }, 
+        "plage3": {
+            "modele":0,
+            "heureDebut":0,
+            "minuteDebut":0,
+            "heureFin":23,
+            "minuteFin":59,
+            "chauffageOnOff":false,
+            "consigne":200,
+            "plageActive":true
+        }
+    }
+    , "jour6": { 
+        "plage0": {
+            "modele":null,
+            "heureDebut":null,
+            "minuteDebut":null,
+            "heureFin":null,
+            "minuteFin":null,
+            "chauffageOnOff":false,
+            "consigne":null,
+            "plageActive":false
+        }, 
+        "plage1": {
+            "modele":null,
+            "heureDebut":null,
+            "minuteDebut":null,
+            "heureFin":null,
+            "minuteFin":null,
+            "chauffageOnOff":false,
+            "consigne":null,
+            "plageActive":false
+        }, 
+        "plage2": {
+            "modele":null,
+            "heureDebut":null,
+            "minuteDebut":null,
+            "heureFin":null,
+            "minuteFin":null,
+            "chauffageOnOff":false,
+            "consigne":null,
+            "plageActive":false
+        }, 
+        "plage3": {
+            "modele":0,
+            "heureDebut":0,
+            "minuteDebut":0,
+            "heureFin":23,
+            "minuteFin":59,
+            "chauffageOnOff":false,
+            "consigne":200,
+            "plageActive":true
+        }
+    }
+}
